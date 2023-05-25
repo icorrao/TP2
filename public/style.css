@@ -1,0 +1,344 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Lato";
+  color: var(--negro);
+}
+
+:root {
+  --negro: #101010;
+  --blanco: #f7f7f7;
+  --amarillo: #ffc107;
+}
+
+.genero {
+  padding: 8rem 0 4rem 0;
+}
+.popular,
+.en-oferta,
+section {
+  padding: 4rem 0;
+}
+
+header {
+  height: 4.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 3rem;
+  background-color: var(--amarillo);
+}
+
+.header-izq {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+#logo {
+  padding: 0 2rem;
+}
+
+nav a {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.2rem;
+  padding: 1.5rem 1rem;
+}
+
+nav a:hover {
+  background-color: var(--negro);
+  color: var(--amarillo);
+  transition: 0.2s;
+}
+
+input[type="search"] {
+  padding: 0.6rem;
+  width: 25rem;
+  border: none;
+  border-radius: 1rem;
+}
+
+input[type="search"]:focus {
+  outline: none;
+}
+
+::placeholder {
+  color: #bebebe;
+  font-size: 1rem;
+}
+
+.header-der {
+  display: flex;
+  gap: 3rem;
+}
+
+.header-der img {
+  background-color: var(--blanco);
+  border-radius: 1rem;
+  padding: 0.5rem;
+}
+
+/*hero*/
+
+.hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url(img/libros.jpg) center center no-repeat;
+  height: 30rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.hero-texto h1,
+.hero-texto h2 {
+  color: var(--blanco);
+  text-align: center;
+}
+
+.hero-texto h1 {
+  font-size: 4.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero-texto h2 {
+  font-size: 1.6rem;
+  font-weight: 300;
+}
+
+.menu-generos {
+  background-color: var(--amarillo);
+  padding: 2.5rem 5rem;
+  border-radius: 4rem;
+  position: absolute;
+  top: 52%;
+}
+
+.menu-generos a {
+  text-decoration: none;
+  font-size: 1.7rem;
+  font-weight: 600;
+  border-right: 1.5px solid var(--negro);
+  padding: 1.2rem 3rem;
+}
+
+.menu-generos a:first-child {
+  padding-left: 0;
+}
+.menu-generos a:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+/*container*/
+
+.container {
+  width: 70%;
+  margin: auto;
+}
+
+/*generos*/
+
+.genero {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.texto-ficcion h1 {
+  display: inline-block;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.texto-ficcion p {
+  max-width: 500px;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+#foto-ficcion {
+  width: 450px;
+  height: 450px;
+  background: url(img/ficcion.jpg) center center no-repeat;
+  background-size: cover;
+  border-radius: 1rem;
+}
+
+.comprar {
+  padding: 1.5rem 3rem;
+  font-size: 1.4rem;
+  background-color: var(--amarillo);
+  border: none;
+  border-radius: 3rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: block;
+  width: fit-content;
+}
+
+/*Popular*/
+
+.popular h1 {
+  border-bottom: 2px solid var(--amarillo);
+  max-width: fit-content;
+  padding-bottom: 1rem;
+  padding-right: 1rem;
+}
+
+.punto {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+}
+
+.punto::after {
+  content: "";
+  position: absolute;
+  top: -12%;
+  left: 215%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  color: var(--amarillo);
+  background-color: var(--amarillo);
+}
+
+.popular-contenedor {
+  display: flex;
+  justify-content: space-between;
+}
+
+.libro-popular {
+  width: 20rem;
+}
+
+.libro-imagen-1,
+.libro-imagen-2,
+.libro-imagen-3 {
+  background: url(img/libro1.jpg) no-repeat center center;
+  background-size: cover;
+
+  height: 30rem;
+}
+
+.libro-imagen-2 {
+  background: url(img/libro2.jpg) no-repeat;
+  background-size: 100% 100%;
+}
+
+.libro-imagen-3 {
+  background: url(img/libro3.jpg);
+  background-size: 100% 100%;
+}
+
+.libro-popular-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--amarillo);
+  height: 4rem;
+  border: 1px solid var(--negro);
+}
+
+.libro-popular-texto {
+  flex: 4;
+  padding: 0.8rem;
+  border-right: 1px solid var(--negro);
+}
+
+.libro-popular-texto p {
+  font-weight: 600;
+}
+
+.libro-popular-comprar a {
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0 1rem;
+}
+
+/*En oferta*/
+
+.en-oferta h1 {
+  max-width: fit-content;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.ofertas-contenedor {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  border-top: 2px solid var(--negro);
+  border-bottom: 2px solid var(--negro);
+  padding: 2rem 0;
+}
+
+.libro-oferta {
+  height: 300px;
+  width: 200px;
+  box-shadow: -9px 14px 0px 0px var(--amarillo);
+}
+
+.libro-oferta img {
+  width: 100%;
+  height: 100%;
+}
+
+/*libros biograficos*/
+
+.libros-biograficos h1 {
+  text-align: center;
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.libros-biograficos p {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.libros-biograficos-contenedor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  
+}
+
+.libro-biografico {
+  padding: 3rem;
+  border: 8px solid var(--amarillo);
+  scale: 80%;
+  max-height: fit-content;
+}
+
+.libro-biografico img {
+  scale: 80%;
+}
+
+.secundario {
+  scale: 70%;
+  opacity: 0.5;
+}
+
+.puntos-contenedor {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.punto-biografico {
+  border-radius: 50%;
+  color: var(--amarillo);
+  background-color: var(--amarillo);
+  width: 1rem;
+  height: 1rem;
+}
+
