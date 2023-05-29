@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Barrio&family=Lato:wght@400;700&display=swap');
+@import url('../node_modules/font-awesome/css/font-awesome.min.css');
 
 * {
   margin: 0;
@@ -30,6 +31,10 @@ header {
   align-items: center;
   padding: 0 3rem;
   background-color: var(--amarillo);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
 }
 
 .header-izq {
@@ -39,6 +44,8 @@ header {
 }
 
 #logo {
+  font-family: "Barrio";
+  font-size: 2.5rem;
   padding: 0 2rem;
 }
 
@@ -56,10 +63,12 @@ nav a:hover {
 }
 
 input[type="search"] {
-  padding: 0.6rem;
+  padding: 0.8rem;
+  padding-left: 1.3rem;
+  text-indent: 1.3rem;
   width: 25rem;
   border: none;
-  border-radius: 1rem;
+  border-radius: 1.4rem;
 }
 
 input[type="search"]:focus {
@@ -73,13 +82,27 @@ input[type="search"]:focus {
 
 .header-der {
   display: flex;
-  gap: 3rem;
+  align-items: center;
+  gap: 1rem;
 }
 
-.header-der img {
+.header-der-icono {
   background-color: var(--blanco);
   border-radius: 1rem;
   padding: 0.5rem;
+}
+
+.buscador {
+  position: relative;
+}
+
+#buscador {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.9rem;
+  font-size: 1.2rem;
+  color: #a7a7a7;
+  opacity: 0.5;
 }
 
 /*hero*/
@@ -92,6 +115,7 @@ input[type="search"]:focus {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  margin-top: 70px;
 }
 
 .hero-texto h1,
@@ -115,7 +139,7 @@ input[type="search"]:focus {
   padding: 2.5rem 5rem;
   border-radius: 4rem;
   position: absolute;
-  top: 52%;
+  top: 52.5%;
 }
 
 .menu-generos a {

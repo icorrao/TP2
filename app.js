@@ -3,6 +3,7 @@ const app = express();
 const puerto = 3000;
 
 app.use(express.static('public'));
+app.use('/node_modules', express.static('node_modules')); // Carpeta node_modules
 
  app.get("/", (req, res) => {
      res.render('pages/index')
