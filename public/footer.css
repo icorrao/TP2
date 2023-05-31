@@ -1,6 +1,6 @@
 
 /*Footer*/
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
+
 
 
 *:root{
@@ -24,7 +24,7 @@
   }
   
   .menuFooter{
-    width: 57vw;
+    width: 63vw;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -35,20 +35,21 @@
     height: 53%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    
   }
   
   
   .tituloAnclas{
-    color: rgb(120,92,10);
-    font-size: 10px;
+    color:black;
+    font-size: 14px;
     margin-bottom: 3px;
   }
   
   .anclas{
-    color:rgb(189,145,7);
-    font-size: 10px;
-    margin: 4px;
+    color:rgb(138,105,13);
+    font-size: 13px;
+    margin: 2px;
+    text-decoration: none;
   }
   
   .contenedorRedes{
@@ -57,34 +58,86 @@
   }
   
   .redes_Footer{
-    width: 26vw;
-    margin: 39px 95px;
+    width: 14vw;
+    margin: 43px 83px;
   }
   
   .titulo_redes{
     font-family: 'Barrio', cursive;
     margin-bottom: 10px;
-    font-size: 23px;
+    font-size: 32px;
+  }
+ 
+  
+
+  .fa-brands{
+    color: rgb(74,58,35);
+    margin-right: 13px;
+    font-size: 20px;
   }
   
-  .redes{
-    color:rgb(134,103,18) ;
-    margin-left:  6px;
-    font-size: 15px;
+  .fa-youtube{
+    
+    font-size: 22px;
   }
-  
+ 
   .raya{
   
     width: 100vw;
     height: 1px;
     background-color: black;
-    margin-top: 37px;
+    margin-top: 55px;
+  }
+  .contenedor-parrafo-footer{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    height: 18%;
+   
   }
   
   .parrafoFooter{
     display: flex;
     justify-content: center;
-    font-size: 10px;
+    font-size: 14px;
     color: rgb(192,147,6);
-  }
+
+ }
+
+ /*footer-politica*/
+
+ 
+
+ .contenedor-politicas{
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(249,249,249);
+  height: 66vh;
+ }
+ .politica-a{
+  text-decoration: none;
+
+
+ }
+ .politica-span{
+  margin-left: 17px;
+ }
+ .politica-inicio{
+  display: flex;
+  margin: 19px 82px;
+ }
+
+ .politica-uso{
+  font-size: 13px;
+  margin: 2px 13px;
+
+ }
+ .politica-titulo{
+  margin: 10px 82px;
+
+ }
+
+ .politica-parrafo{
+  margin: 10px 82px;
+ }
   
