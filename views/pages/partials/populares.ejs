@@ -22,51 +22,40 @@
     </div>
 
     <div class="popular">
+      
       <h1>Popular</h1>
+      
       <div class="punto"></div>
-
-      <div class="popular-contenedor">
+      <div id="libros-carousel" >
+      <% libros.forEach((libro) => { %>
+      <div  class="popular-contenedor">
         <div class="libro-popular">
-          <div class="libro-imagen-1"></div>
-          <div class="libro-popular-info">
-            <div class="libro-popular-texto">
-              <p>Libro 1</p>
-              <p>$45.99</p>
+          <div class="libro-imagen-3"><img src="<%= libro.imagen %>"></div>
+          <div  class="libro-popular-info">
+            <div  class="libro-popular-texto">
+              <p><%= libro.nombre %></p>
+              <p><%= libro.precio %></p>
             </div>
             <div class="libro-popular-comprar">
-              <a href="#">Comprar</a>
+              <form action="/agregar-al-carrito" method="post">
+                <input type="hidden" name="libroId" value="<%= libro.id %>">
+                <input type="hidden" name="nombre" value="<%= libro.nombre %>">
+                <input type="hidden" name="precio" value="<%= libro.precio %>">
+                <input type="hidden" name="imagen" value="<%= libro.imagen %>">
+                <button type="submit">Agregar al carrito</button>
+              </form>
             </div>
           </div>
         </div>
       
 
       
-        <div class="libro-popular">
-          <div class="libro-imagen-2"></div>
-          <div class="libro-popular-info">
-            <div class="libro-popular-texto">
-              <p>Libro 2</p>
-              <p>$45.99</p>
-            </div>
-            <div class="libro-popular-comprar">
-              <a href="#">Comprar</a>
-            </div>
-          </div>
-        </div>
-      
-      
-      
-        <div class="libro-popular">
-          <div class="libro-imagen-3"></div>
-          <div class="libro-popular-info">
-            <div class="libro-popular-texto">
-              <p>Libro 3</p>
-              <p>$45.99</p>
-            </div>
-            <div class="libro-popular-comprar">
-              <a href="#">Comprar</a>
-            </div>
-          </div>
-        </div>
+        
     </div>
+    <% }) %>
+    </div>
+
   </div>
+  <h2>Carrito</h2>
+  <p>Cantidad de libros en el carrito: <%= carrito.length %></p>
+  <a href="/carrito">Ver carrito</a>

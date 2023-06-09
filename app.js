@@ -9,9 +9,10 @@ import formRouter from './routes/formulario.js'
 const app = express();
 const puerto = 3000;
 dotenv.config({path: './.env'})
-
+// Middleware para manejar datos de formulario
+app.use(express.urlencoded({ extended: true }));
 app.use(formRouter)
-app.use(express.urlencoded({ extended: false }));
+
 app.use(express.static('public'));
 app.set('view engine', 'ejs')
 
