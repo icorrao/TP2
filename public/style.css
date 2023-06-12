@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Barrio&display=swap');
-=======
 @import url('https://fonts.googleapis.com/css2?family=Barrio&family=Lato:wght@400;700&display=swap');
 @import url('../node_modules/font-awesome/css/font-awesome.min.css');
->>>>>>> dcdf6590a57ff79a0da80f0ae0c715156ca6c857
 
 * {
   margin: 0;
