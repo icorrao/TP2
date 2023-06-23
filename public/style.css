@@ -165,6 +165,31 @@ input[type="search"]:focus {
   margin: auto;
 }
 
+/*seccion comprar*/
+.container-comprar {
+  padding: 5rem 0;
+}
+
+.libros-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.book {
+  flex: 0 0 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 1rem;
+  border: 1px solid grey;
+  margin: 1rem;
+}
+.book h2 {
+  font-size: 1rem;
+}
+
 /*generos*/
 
 .genero {
@@ -365,22 +390,3 @@ input[type="search"]:focus {
   width: 1rem;
   height: 1rem;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
