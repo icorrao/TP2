@@ -28,10 +28,10 @@ const client = google.books({ version: 'v1', auth: 'AIzaSyCHX_xBulCt_4opNIQcWCmc
 //
 //mongoose
 import mongoose from "mongoose";
-const mongoUser = 'icorrao90';
-const mongoPassword = 'nrvfDFQuscoSWZ1h';
-const mongoCluster = 'cluster0.s7v8prd.mongodb.net';
-const mongoDatabase = 'apilibros';
+const mongoUser = process.env.MONGO_USER;
+const mongoPassword = process.env.MONGO_PASSWORD;
+const mongoCluster = process.env.MONGO_CLUSTER;
+const mongoDatabase = process.env.MONGO_DATABASE;
 mongoose.connect(`mongodb+srv://${mongoUser}:${mongoPassword}@${mongoCluster}/${mongoDatabase}?retryWrites=true&w=majority`)
 .then(() => {
   console.log("conectado a mongodb")
@@ -42,6 +42,7 @@ mongoose.connect(`mongodb+srv://${mongoUser}:${mongoPassword}@${mongoCluster}/${
 import bodyParser from "body-parser";
 
 const app = express();
+<<<<<<< HEAD
 dotenv.config({path:'./config.env'})
 
 
@@ -83,6 +84,13 @@ next()
   
 
 app.use(bodyParser.urlencoded({ extended: true }));
+=======
+const puerto = 3000;
+dotenv.config({path: './.env'})
+// Middleware para manejar datos de formulario
+app.use(express.urlencoded({ extended: true }));
+app.use(formRouter)
+>>>>>>> 73a2d8cca25be213287432cbb84bcb4675dac6d6
 
 app.use(express.static('public'));
 app.use('/node_modules', express.static('node_modules')); // Carpeta node_modules
