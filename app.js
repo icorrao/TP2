@@ -22,7 +22,7 @@ import admin from './models/adminmodels.js'
 //api
 import { google } from 'googleapis';
 import { datacatalog } from "googleapis/build/src/apis/datacatalog/index.js";
-const client = google.books({ version: 'v1', auth: 'AIzaSyCHX_xBulCt_4opNIQcWCmc1MF6nwwBENY' }); // reemplazar x por tu api key
+const client = google.books({ version: 'v1', auth: '' }); // reemplazar x por tu api key
 //
 
 const app = express();
@@ -99,7 +99,7 @@ app.get("/", (req, res) => {
 
 //prueba mostrar libros por consola
 const response = await client.volumes.list({
-  q: 'AIzaSyCHX_xBulCt_4opNIQcWCmc1MF6nwwBENY', // reemplazar x por nombre de libro
+  q: '', // reemplazar x por nombre de libro
 });
 
 
