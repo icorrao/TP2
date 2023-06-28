@@ -1,4 +1,5 @@
 import express from 'express'
+import nodemailer from 'nodemailer'
 const router=express.Router()
 
 // Get del footer
@@ -7,16 +8,10 @@ router.get("/politicas",(req,res)=>{
 
 
 })
-//Get del formilario
+//Get del formulario
 router.get('/enviar-correo',(req,res)=>{
   res.render('pages/correo/correo.ejs')
 })
-//Get pagina de inicio
-router.get("/", (req, res) => {
-    res.render('pages/index')
-  });
-  
-  
 
 
 

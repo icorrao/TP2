@@ -11,12 +11,19 @@
         </nav>
       </div>
       <div class="header-der">
+       
         <div class="buscador">
           <i class="fa-solid fa-magnifying-glass" id="buscador"></i>
           <input type="search" name="buscar" id="buscar" placeholder="Buscar" />
         </div>
         <i class="fa-regular fa-bell header-der-icono"></i>
         <i class="fa-solid fa-cart-shopping header-der-icono"></i>
-        <i class="fa-solid fa-user header-der-icono"></i>
+        <%- include('../../pages/partials/mensajes') %>
+        <% if (currentUser) { %>
+          <a href="/logout"><i class="fa-solid fa-user header-der-icono"></i>Cerrar sesión (<%= currentUser %>)</a>
+        <% } else { %>
+          <a href="/login"><i class="fa-solid fa-user header-der-icono"></i></a>
+        <% } %>
+     
       </div>
     </header>

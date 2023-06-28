@@ -1,0 +1,88 @@
+.contenedor-login{
+    background-color: rgb(235,235,235);
+    height: 53vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+
+}
+.contenedor-loginAdmin{
+    height: 74vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    width: 100vw;
+
+   }
+.input-login{
+
+    width: 320px;
+    height: 40px;
+    border-radius: 5px;
+   border: 1px solid black;
+    margin:10px ;
+}
+.login-mensaje{
+    display: flex;
+    background-color: #ebebeb;
+    height: 19vh;
+    align-items: center;
+    justify-content: flex-start;
+
+
+}
+.login-registrarse{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    height: 72%;
+    border: 1px solid black;
+    border-radius: 10px;
+
+}
+.login-admin{
+    display: flex;
+    justify-content: flex-end;
+    background-color:#ebebeb ;
+}
+
+/*olvide contraseña*/
+.olvide-contraseña{
+    height: 74vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column
+}
+
+/*todos usuarios*/
+.admin-titulo{
+    margin: 45px;
+}
+.admin-usuarios{
+    height: 56vh ;
+    margin: 45px;
+}
+
+
+.admin-editar{
+    height: 68vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+} 
+
+
+.input-admin{
+  
+    width: 320px;
+    height: 40px;
+    border-radius: 5px;
+   border: 1px solid black;
+    margin:10px ;
+}  
+
