@@ -1,0 +1,11 @@
+.contenedor-carrito{
+    display: flex;
+    height: 66vh;
+}
+
+.carrito{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}

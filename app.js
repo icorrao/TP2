@@ -28,10 +28,10 @@ const client = google.books({ version: 'v1', auth: 'AIzaSyCHX_xBulCt_4opNIQcWCmc
 //
 //mongoose
 import mongoose from "mongoose";
-const mongoUser = process.env.MONGO_USER;
-const mongoPassword = process.env.MONGO_PASSWORD;
-const mongoCluster = process.env.MONGO_CLUSTER;
-const mongoDatabase = process.env.MONGO_DATABASE;
+const mongoUser = 'icorrao90';
+const mongoPassword = 'nrvfDFQuscoSWZ1h';
+const mongoCluster = 'cluster0.s7v8prd.mongodb.net';
+const mongoDatabase = 'apilibros';
 mongoose.connect(`mongodb+srv://${mongoUser}:${mongoPassword}@${mongoCluster}/${mongoDatabase}?retryWrites=true&w=majority`)
 .then(() => {
   console.log("conectado a mongodb")
