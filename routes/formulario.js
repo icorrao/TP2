@@ -76,6 +76,7 @@ router.get('/', (req, res) => {
 // Ruta para agregar un libro al carrito
 router.post('/agregar-al-carrito', (req, res) => {
   const libroId = parseInt(req.body.libroId);
+  console.log(libroId)
   const libro = {
     id: libroId,
     nombre: req.body.nombre,

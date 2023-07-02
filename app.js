@@ -24,10 +24,11 @@ import  path  from "path";
 const API_KEY = process.env.API_KEY;
 import { google } from 'googleapis';
 import { datacatalog } from "googleapis/build/src/apis/datacatalog/index.js";
-const client = google.books({ version: 'v1', auth: '' }); // reemplazar x por tu api key
+const client = google.books({ version: 'v1', auth: API_KEY }); // reemplazar x por tu api key
 //
 //mongoose
 import mongoose from "mongoose";
+dotenv.config({path:'./.env'})
 const mongoUser = process.env.MONGO_USER;
 const mongoPassword = process.env.MONGO_PASSWORD;
 const mongoCluster = process.env.MONGO_CLUSTER;
@@ -42,8 +43,7 @@ mongoose.connect(`mongodb+srv://${mongoUser}:${mongoPassword}@${mongoCluster}/${
 import bodyParser from "body-parser";
 
 const app = express();
-<<<<<<< HEAD
-dotenv.config({path:'./config.env'})
+
 
 
 //middleware para sesiones
@@ -83,14 +83,7 @@ next()
 
   
 
-app.use(bodyParser.urlencoded({ extended: true }));
-=======
-const puerto = 3000;
-dotenv.config({path: './.env'})
-// Middleware para manejar datos de formulario
-app.use(express.urlencoded({ extended: true }));
-app.use(formRouter)
->>>>>>> 73a2d8cca25be213287432cbb84bcb4675dac6d6
+
 
 app.use(express.static('public'));
 app.use('/node_modules', express.static('node_modules')); // Carpeta node_modules
@@ -129,17 +122,7 @@ const response = await client.volumes.list({
 });
 
 
-mongoose.connect('mongodb://127.0.0.1:27017/Biblioteca',{
-  useNewUrlParser : true,
-  useUnifiedTopology : true,
-  //useCreateIndex : true
 
-
-}).then(mensaje=>{
-
-  console.log('la db se conecto')
-
-});
 
   try {
     const books = await buscarPorConsulta(query);
@@ -169,6 +152,6 @@ async function buscarPorConsulta(query) {
 }
 //
 
-app.listen(3000, () => {
+app.listen(process.env.PUERTO, () => {
   console.log("servidor ejecutado");
 });

@@ -15,7 +15,7 @@
   
    
     <div class="login-registrarse">
-        <h3>Por favor registrate.</h3>
+        <h3 class="titulo-registrarse">Por favor registrate.</h3>
         <form action="/registrarse" method="POST"> 
             <div>
                 <input class="input-login" type="text" name="nombre" placeholder="nombre">
@@ -27,20 +27,20 @@
                 <input class="input-login" type="password" name="password" placeholder="ingrese su password">
             </div>
             
-            <button type="submit">Registrar</button>
+            <button class="btn-registrarse" type="submit">Registrarse</button>
         </form>
     </div>
 
  
 
 <div class="login-ingresar">
-    <h3>Inicia sesion.</h3>
+    <h3 class="titulo-sesion">Inicia sesion.</h3>
     <form action="/login" method="post">
         
         <input class="input-login"  type="text" name="email" placeholder="Email">
         <input class="input-login"  type="text"name="password"placeholder="ingrese su contraseña">
         <div class="login-boton">
-            <a class="login-olvide" href="/olvide">olvido su contraseña?</a>
+            <a class="olvide-login" href="/olvide">olvido su contraseña?</a>
             
             <button class="btn-login" type="submit">ingresar como usuarios</button>
             

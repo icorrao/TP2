@@ -122,26 +122,27 @@ router.post('/login/admin', passport.authenticate('admin', {
   failureFlash: 'Email o contraseña incorrecta, intente nuevamente'
 }));
 //Get registrar usuario
-router.post("/registrarse",(req, res) => {
-  let { nombre, email, password } = req.body;
-  const nuevoUsuario = {
-    nombre: nombre,
-    email: email,
-     
-  }
+router.post("/registrarse", async (req, res) => {
+  try {
+    let { nombre, email, password } = req.body;
+    const nuevoUsuario = {
+      nombre: nombre,
+      email: email,
+    };
 
-  usuarios.register(nuevoUsuario, password, (err, usuario)=> {
-    if(err) {
-        req.flash('error_msg', 'ERROR: '+err);
-        res.redirect('/registrarse');
-    }
-    req.flash('success_msg', 'registracion exitosa' );
+    await usuarios.register(nuevoUsuario, password);
+    req.flash('success_msg', 'Registración exitosa');
     res.redirect('/login');
-  });
+  } catch (err) {
+    req.flash('error_msg', 'ERROR: ' + err);
+    res.redirect('/login');
+  }
+});
+
   
 
 //Get registrar usuario
-});
+
 router.post("/registrarseAdmin",(req, res) => {
   let { nombre, email, password } = req.body;
   const nuevoUsuario = {
