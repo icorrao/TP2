@@ -57,7 +57,7 @@ router.post('/enviar-correo', async(req, res) => {
   let carrito = [];
 
 // Ruta para mostrar la página principal
-router.get('/', (req, res) => {
+/*router.get('/', (req, res) => {
   const libros = [
     { id: 1, nombre: 'Libro 1', precio: 10, imagen: 'libro1.jpg' },
     { id: 2, nombre: 'Libro 2', precio: 15, imagen: 'libro2.jpg' },
@@ -115,7 +115,7 @@ console.log(indice)
   });
 
   res.render('pages/partials/carrito', { carrito, total });
-});
+});    si no se usa se saca*/
 
 
 
