@@ -1,0 +1,28 @@
+<%- include('../../pages/partials/head') %>
+
+
+  <div class="dashboard-container">
+    <div class="sidebar">
+      <a href="#">Actualizar</a>
+      <a href="/productos/admin">Todos los productos</a>
+      <a href="/todosUsuarios">Todos los usuarios</a>
+    </div>
+    
+    <div class="main-content">
+      <div class="navbar-panel">
+      
+        <%- include('../../pages/partials/mensajes') %>
+        <% if (currentAdmin) { %>
+          <a href="/logout"> <i class="fa-solid fa-user header-der-icono">  <%= currentAdmin %></i>Cerrar sesión</a>
+        <% } else { %>
+          <a href="/login"><i class="fa-solid fa-user header-der-icono"></i></a>
+        <% } %>
+     
+      </div>
+      
+      <!-- Aquí puedes agregar el contenido principal del dashboard -->
+    </div>
+  </div>
+
+
+  <%- include('../../pages/partials/footer') %>

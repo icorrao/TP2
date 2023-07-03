@@ -20,7 +20,7 @@
         <i class="fa-solid fa-cart-shopping header-der-icono"></i>
         <%- include('../../pages/partials/mensajes') %>
         <% if (currentUser) { %>
-          <a href="/logout"><i class="fa-solid fa-user header-der-icono"></i>Cerrar sesión (<%= currentUser %>)</a>
+          <a href="/logout"><i class="fa-solid fa-user header-der-icono"><%= currentUser %></i>Cerrar sesión </a>
         <% } else { %>
           <a href="/login"><i class="fa-solid fa-user header-der-icono"></i></a>
         <% } %>

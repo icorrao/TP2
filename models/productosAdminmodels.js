@@ -4,6 +4,8 @@ import mongoose from "mongoose"
 
 let productosSchema= new mongoose.Schema({
     titulo:String,
+    editorial:String,
+    genero:String,
     nuevoPrecio:Number,
     viejoPrecio:Number,
     nuevoStock:Number,
@@ -17,4 +19,4 @@ let productosSchema= new mongoose.Schema({
 
 })
 
-module.exports=mongoose.models('productos',productosSchema)
+export default mongoose.model('productosAdmin',productosSchema)

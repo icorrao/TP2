@@ -10,7 +10,7 @@ const router=express.Router()
 
 import usuarios from '../models/usuariosmodels.js'
 import admin from '../models/adminmodels.js'
-
+import Libros from '../models/librosmodel.js';
 
 // Checks if user is authenticated
 function isAuthenticatedUser(req, res, next) {
@@ -33,6 +33,18 @@ router.get('/loginAdmin',(req,res)=>{
  
   res.render('pages/administrador/loginAdmin');
  
+})
+router.get('/productos/admin',(req,res)=>{
+  Libros.find({})
+  .then(Libros=>{
+     res.render('pages/administrador/productosAdmin',{Libros:Libros})
+     })
+     .catch(error =>{
+     res.flash('error_msg','ERROR:',+error)
+      res.render('pages/usuarios/loginAdmin')
+
+     })
+     
 })
   //Get cerrar sesion
   router.get("/logout", isAuthenticatedUser, (req, res) => {
@@ -87,6 +99,12 @@ res.render('pages/usuarios/registrarse')
        
    
   });
+  router.get('/panel',(req,res)=>{
+ 
+    res.render('pages/administrador/panel');
+   
+  })
+  
 
  //Get editar usuarios
 
@@ -103,6 +121,26 @@ res.redirect('/todosUsuarios')
 
 })
 })
+router.get('/productos/admin',(req,res)=>{
+ 
+  res.render('pages/administrador/productosAdmin');
+ 
+})
+
+
+router.get('/editar/producto/admin/:id',(req,res)=>{
+  let librosId= {_id:req.params.id}
+  Libros.findOne(librosId)
+  .then(libro=>{
+  
+    res.render('pages/administrador/editarLibros',{libro:libro})
+  })
+  .catch(error=>{
+    req.flash('error_msg', 'ERROR: '+err);
+  res.redirect('/productosAdmin')
+  
+  })
+  })
 //Get buscar los producctos
   router.get("/productos/buscar", (req, res) => {//ver
     res.render('pages/administrador/buscar')
@@ -117,7 +155,7 @@ router.post('/login', passport.authenticate('user', {
 }));
 // Post para autenticar a los administradores
 router.post('/login/admin', passport.authenticate('admin', {
-  successRedirect: '/todosUsuarios',
+  successRedirect: '/panel',
   failureRedirect: '/login',
   failureFlash: 'Email o contraseña incorrecta, intente nuevamente'
 }));
@@ -315,6 +353,25 @@ router.delete('/eliminar/usuario/:id', (req, res)=>{
           req.flash('error_msg', 'ERROR: '+err);
           res.redirect('/todosUsuarios');
       })
+});
+
+//PUT editar
+router.put('/editar/producto/admin/:id', (req, res)=> {
+  let searchQuery = {_id : req.params.id};
+
+  Libros.updateOne(searchQuery, {$set : {
+      precio : req.body.precio,
+      stock  : req.body.stock
+     
+  }})
+  .then(user => {
+      req.flash('success_msg', 'Usuario modificado exitosamente.');
+      res.redirect('/productos/admin');
+  })
+  .catch(err => {
+      req.flash('error_msg', 'ERROR: '+err);
+      res.redirect('/editarLibros');
+  })
 });
 
 

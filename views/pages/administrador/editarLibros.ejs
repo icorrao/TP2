@@ -1,0 +1,28 @@
+
+
+
+
+<div class="admin-editar">
+    <h1>Editar libros</h1>
+    <%- include('../../pages/partials/mensajes.ejs') %>
+    
+    <div>
+        <form action="/editar/producto/admin/<%= libro.id %>?_method=PUT" method="POST"> 
+            <input type="hidden"name=_method value="PUT">
+
+            <div>
+                <h6>Precio</h6>
+                <input class="input-admin" value="<%= libro.precio %>" type="text" name="precio"placeholder="ingrese su precio">
+                <h6>Stock</h6>
+                <input class="input-admin" value="<%= libro.stock %>" type="text" name="stock"placeholder="ingrese su stock">
+            </div>
+           
+           
+            <button type="submit">Actualizar datos</button>
+            <a href="/login">Volver al login</a>
+
+
+          
+        </form>
+    </div>
+</div>

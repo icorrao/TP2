@@ -1,0 +1,72 @@
+<%- include('head') %>
+<%- include('header') %>
+
+<div class="container-comprar container">
+  <h1>Resultados de búsqueda de libros</h1>
+  <% if (books.length > 0) { %>
+    <div class="libros-container">
+      <% books.forEach((book) => { %>
+        <% if (book.thumbnail) { %>
+          <div class="book">
+            <h2><%= book.title %></h2>
+            <img src="<%= book.thumbnail %>" alt="Tapa del libro">
+            <p>Autor: <%= book.authors %></p>
+            <p>Editorial: <%= book.publisher %></p>
+          </div>
+        <% } %>
+      <% }); %>
+    </div>
+  <% } else { %>
+    <p>No se encontraron libros.</p>
+  <% } %>
+</div>
+
+<%- include('footer') %>
+
+<script>
+  const obtenerLibrosDeBaseDeDatos = async () => {
+    try {
+      const books = await buscarEnBaseDeDatos();
+
+      //renderizar los libros
+      const librosContainer = document.querySelector('.libros-container');
+      librosContainer.innerHTML = '';
+      if (books.length > 0) {
+        books.forEach((book) => {
+          if (book.thumbnail) {
+            const bookElement = document.createElement('div');
+            bookElement.classList.add('book');
+
+            const titleElement = document.createElement('h2');
+            titleElement.innerText = book.title;
+            bookElement.appendChild(titleElement);
+
+            const imgElement = document.createElement('img');
+            imgElement.src = book.thumbnail;
+            imgElement.alt = 'Tapa del libro';
+            bookElement.appendChild(imgElement);
+
+            const authorElement = document.createElement('p');
+            authorElement.innerText = `Autor: ${book.authors}`;
+            bookElement.appendChild(authorElement);
+
+            const publisherElement = document.createElement('p');
+            publisherElement.innerText = `Editorial: ${book.publisher}`;
+            bookElement.appendChild(publisherElement);
+
+            librosContainer.appendChild(bookElement);
+          }
+        });
+      } else {
+        const noBooksElement = document.createElement('p');
+        noBooksElement.innerText = 'No se encontraron libros.';
+        librosContainer.appendChild(noBooksElement);
+      }
+    } catch (error) {
+      console.error('Error al obtener los libros de la base de datos:', error);
+    }
+  };
+
+  //llamar a la funcion para obtener y renderizar los libros de la base de datos
+  obtenerLibrosDeBaseDeDatos();
+</script>
