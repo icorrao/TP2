@@ -16,45 +16,44 @@ router.get('/enviar-correo',(req,res)=>{
 
 //Post formulario
 router.post('/enviar-correo', async(req, res) => {
-    const formData = req.body; 
-    console.log(formData.email)
+    const {nombre, email, mensaje} = req.body; 
+    console.log(email)
   
     // Transporte de Nodemailer, envía el correo electrónico
   
     const transporter = nodemailer.createTransport({
       
       // Configuración del servidor SMTP
-      host:'smtp.gmail.com',  
-      port : 587,
-      user: '',
-      pass:''
+      service: 'Gmail',
+      auth:{
+      user: process.env.CORREO_USER,
+      pass: process.env.CORREO_PASS,
+      },
   });
   // Opciones del correo electrónico
     const mailOptions = {
-        from:`Correo ${formData.email}`,
+        from:'',
         to:'diegocolman14@gmail.com',
-        subjet:`nuevo mensaje de contacto ${formData.nombre}`,
-        text:`
-        Nombre ${formData.nombre}
+        subjet:'nuevo mensaje de contacto ',
+        text:`${mensaje}`,
         
-        Mensaje ${formData.mensaje}`
      };
   
   
     await transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.error(error);
-        res.send('Error al enviar el correo electrónico');
+        req.flash('success_msg','Error al enviar el correo electrónico');
       } else {
         console.log('Correo electrónico enviado: ' + info.response);
-        res.send('Correo electrónico enviado correctamente');
+        req.flash('error_msg','Correo electrónico enviado correctamente');
         
       }
       
     });
   });
 
-  let carrito = [];
+ 
 
 // Ruta para mostrar la página principal
 /*router.get('/', (req, res) => {

@@ -15,6 +15,7 @@
     align-items: center;
     background-size: cover;
     width: 100vw;
+    background-color: rgb(235,235,235)
 
    }
 .input-login{
@@ -22,14 +23,15 @@
     width: 320px;
     height: 40px;
     border-radius: 17px;
-   border: 1px solid black;
+   border: 1px solid #e1dddd;
     margin:10px ;
+    padding: 10px;
 }
 
 .titulo-sesion{
     margin: 11px;
 }
-.olvide-login{
+.ancla-olvide-login{
     margin-left: 13px;
     color: blue;
 }
@@ -100,102 +102,49 @@
     justify-content: center;
     background: white;
     height: 72%;
-    border: 1px solid black;
+    border: 1px solid #e1dddd;
     border-radius: 10px;
 
 }
-/*administrador*/
+/*ancla administrador*/
 .login-admin{
-    display: flex;
-    justify-content: flex-end;
-    background-color:#ebebeb ;
-    color: blue;
-    padding-right: 10px;
+  display: flex;
+  justify-content: flex-end;
+  background-color:#ebebeb ;
+  color: blue;
+  padding-right: 10px;
 }
 
-/*olvide contraseña*/
-.olvide-contraseña{
-    height: 74vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column
+/*----------------------------------------------------------------------------*/
+
+
+
+
+
+
+/*tabla editar usuarios admin*/
+.tabla-editar-usuarios{
+  width: 50%;
+}
+.tbody-tabla{
+  background-color: rgb(255,193,7);
 }
 
-/*todos usuarios*/
-.admin-titulo{
-    margin: 45px;
-}
-.admin-usuarios{
-    height: 56vh ;
-    margin: 45px;
-}
-
-/*editar usuarios*/
-.admin-editar{
-    height: 68vh;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-} 
 
 
-.input-admin{
-  
-    width: 320px;
-    height: 40px;
-    border-radius: 5px;
-   border: 1px solid black;
-    margin:10px ;
-}  
+/*---------------------------------------------------------------------------------*/
 
-  /* Estilos para el layout del dashboard */
-  .dashboard-container {
-    display: flex;
-  }
-  
-  .sidebar {
-    width: 200px;
-    background-color: #f2f2f2;
-    padding: 20px;
-  }
-  
-  .main-content {
-   width: 90%;
-  }
-  
-  /* Estilos para las etiquetas de la barra lateral */
-  .sidebar a {
-    display: block;
-    margin-bottom: 10px;
-    text-decoration: none;
-  }
-  
-  .sidebar a:hover {
-    font-weight: bold;
-  }
-  
-  /* Estilos para la barra de navegación superior */
-  .navbar-panel {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    background-color: #f2f2f2;
+
+
+
+
+  /*productos admin    verrrrrr*/
+
+  .productos-admin{
+    border: 1px solid black;
     padding: 10px;
-    margin-bottom: 20px;
-  }
-  
-  /* Estilos para el botón de cerrar sesión */
-  .logout-button {
-    background-color: #ff0000;
-    color: #ffffff;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
+    margin-bottom: 10px;
+    width: 11%;
+    margin: 21px;
 
-
-  .dashboard-container{
-    height: 74vh;
   }

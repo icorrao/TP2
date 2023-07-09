@@ -53,6 +53,7 @@
     border: none;
     border-radius: 5px;
     margin: 10px;
+    padding: 10px;
   }
   .inputGmail{
     width: 517px;
@@ -60,6 +61,7 @@
     margin: 10px;
     border: none;
     border-radius: 5px;
+    padding: 10px;
   }
   
   .input_2{
@@ -75,6 +77,7 @@
     height: 30vh;
     border: none;
     border-radius: 5px;
+    padding: 10px;
   }
   
   ::placeholder{

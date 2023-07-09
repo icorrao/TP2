@@ -1,16 +1,16 @@
 <%- include('../../pages/partials/head') %>
 <%- include('../../pages/partials/header') %>
-<div>
+<div class="olvide-container">
     
     <div class="olvide-contraseña">
-        <h1>Restablecer contraseña</h1>
+        <h3 class="titulo-restablecer-contraseña">Restablecer contraseña</h3>
         <%- include('../../pages/partials/mensajes') %>
         <form action="/olvide" method="POST"> 
             <div>
-                <input type="email" name="email"placeholder="ingrese su email">
-                <button type="submit">enviar email</button>
+                <input class="input-login"type="email" name="email"placeholder="ingrese su email">
+                <button class="btn-olvide" type="submit">enviar</button>
             </div>
-            <a href="/login">Volver al login</a>
+            <a class=" ancla-restablecer-contraseña" href="/login">Volver al login</a>
 
 
 
