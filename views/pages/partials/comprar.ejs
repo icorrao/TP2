@@ -1,0 +1,24 @@
+<%- include('head') %>
+<%- include('header') %>
+
+<div class="container-comprar container">
+  <h1>Resultados de búsqueda de libros</h1>
+  <% if (books.length > 0) { %>
+    <div class="libros-container">
+      <% books.forEach((book) => { %>
+        <% if (book.thumbnail) { %>
+          <div class="book">
+            <h2><%= book.title %></h2>
+            <img src="<%= book.thumbnail %>" alt="Tapa del libro">
+            <p>Autor: <%= book.authors %></p>
+            <p>Editorial: <%= book.publisher %></p>
+          </div>
+        <% } %>
+      <% }); %>
+    </div>
+  <% } else { %>
+    <p>No se encontraron libros.</p>
+  <% } %>
+</div>
+
+<%- include('footer') %>
