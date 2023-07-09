@@ -11,7 +11,7 @@ const puerto = 3030;
 dotenv.config({path: './.env'})
 
 app.use(formRouter)
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false })); //leer el req.body
 app.use(express.static('public'));
 app.set('view engine', 'ejs')
 
@@ -19,11 +19,6 @@ app.set('view engine', 'ejs')
 // app.get('/articles',(req,res){
 //   res.render('pages/seccion-a-redireccionar')
 // })
-
-
-
-
-
 
 
 
