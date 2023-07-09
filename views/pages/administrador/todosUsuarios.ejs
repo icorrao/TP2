@@ -1,0 +1,72 @@
+
+<%- include('../../pages/partials/head') %>
+<h1 class="admin-titulo">Todos los usuarios</h1>
+<div class="admin-usuarios">
+    <div>
+    
+        <%- include('../../pages/partials/mensajes.ejs') %>
+        <table>
+            <thead>
+                
+                <tr>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>acciones</th>
+                    <tbody>
+                        <%usuarios.forEach(usuario =>{%>
+                            
+                       
+                        <tr>
+                            <td><%=usuario.nombre%></td>
+                            <td><%=usuario.email%></td>
+                            <td>
+                                <a href="/editar/<%= usuario.id %>">editar</a>
+
+                                <form action="/eliminar/usuario/<%=usuario.id%>?_method=DELETE" method="POST">
+                                    <input type="hidden"name="_method " value="DELETE">
+                                    <button type="submit" >eliminar</button>
+                                </form>
+                            </td>
+
+
+
+
+                        </tr>
+                        <%})%>
+
+
+
+
+
+                    </tbody>
+                    
+
+
+
+
+
+                
+               </tr>
+
+
+
+
+            </thead>
+
+
+
+        </table>
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+</div>
+<%- include('../../pages/partials/footer') %>

@@ -2,8 +2,20 @@ import ejs from "ejs";
 import express from "express";
 import nodemailer from "nodemailer";
 import dotenv from 'dotenv';
-dotenv.config();
+import flash from "connect-flash";
+import session from "express-session";
+import methodOverride from "method-override";
+import passport  from "passport";
+import morgan from "morgan";
+import LocalStrategy  from 'passport-local';
+
+
+//Routes
 import formRouter from './routes/formulario.js'
+import usuarios from './routes/usuarios.js'
+// importar modelo
+import Usuarios from './models/usuariosmodels.js'
+import admin from './models/adminmodels.js'
 //axios
 import axios from 'axios'
 //path
@@ -11,8 +23,12 @@ import  path  from "path";
 //api
 const API_KEY = process.env.API_KEY;
 import { google } from 'googleapis';
+import { datacatalog } from "googleapis/build/src/apis/datacatalog/index.js";
+const client = google.books({ version: 'v1', auth: API_KEY }); // reemplazar x por tu api key
+//
 //mongoose
 import mongoose from "mongoose";
+dotenv.config({path:'./.env'})
 const mongoUser = process.env.MONGO_USER;
 const mongoPassword = process.env.MONGO_PASSWORD;
 const mongoCluster = process.env.MONGO_CLUSTER;
@@ -32,11 +48,50 @@ import Libro from './models/librosmodel.js';
 const router = express.Router();
 
 const app = express();
-const puerto = 3030;
-dotenv.config({path: './.env'})
 
-app.use(formRouter)
-app.use(express.urlencoded({ extended: false }));
+
+
+//middleware para sesiones
+app.use(session({
+  secret: 'se logeo en mi aplicacion',
+  resave:true,
+  saveUninitialized:true,
+  
+  
+  }))
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+// Configuración de la estrategia de autenticación para usuarios comunes
+passport.use('user', new LocalStrategy({ usernameField: 'email' }, Usuarios.authenticate()));
+passport.serializeUser(Usuarios.serializeUser());
+passport.deserializeUser(Usuarios.deserializeUser());
+
+// Configuración de la estrategia de autenticación para administradores
+passport.use('admin', new LocalStrategy({ usernameField: 'email' }, admin.authenticate()));
+passport.serializeUser(admin.serializeUser());
+passport.deserializeUser(admin.deserializeUser());
+//middleware flash mensajes
+app.use(flash());
+
+// configuracion de middlware
+app.use( (req,res, next)=>{
+  res.locals.success_msg=req.flash(('success_msg'))
+  res.locals.error_msg=req.flash(('error_msg'))
+  res.locals.error = req.flash(('error'));
+  res.locals.currentUser = req.user ? req.user.nombre : null;
+next()
+
+})
+
+  
+
+
+
+app.use(express.static('public'));
+app.use('/node_modules', express.static('node_modules')); // Carpeta node_modules
 app.use(bodyParser.urlencoded({extended:true})) //body parser
 app.use(express.static('public'));
 app.use('/node_modules', express.static('node_modules')); // Carpeta node_modules
@@ -45,11 +100,38 @@ app.use('/node_modules', express.static('node_modules')); // Carpeta node_module
  });
 
 app.set('view engine', 'ejs')
+//middleware for method override
+app.use(methodOverride('_method'));
+
+
+
+
+
+//rutas
+app.use(formRouter)
+app.use(usuarios)
+
+
+app.get("/", (req, res) => {
+  res.render('pages/index.ejs')
+});
+
+
+
+
 
 //pruebas
 
 app.get('/comprar', async (req, res) => {
   const query = req.query.buscar || '';
+
+//prueba mostrar libros por consola
+const response = await client.volumes.list({
+  q: '', // reemplazar x por nombre de libro
+});
+
+
+
 
   try {
     const books = await buscarPorConsulta(query);
