@@ -10,7 +10,7 @@ const router=express.Router()
 
 import usuarios from '../models/usuariosmodels.js'
 import admin from '../models/adminmodels.js'
-
+import Libros from '../models/librosmodel.js';
 
 // Checks if user is authenticated
 function isAuthenticatedUser(req, res, next) {
@@ -34,6 +34,49 @@ router.get('/loginAdmin',(req,res)=>{
   res.render('pages/administrador/loginAdmin');
  
 })
+// mostrar los productos al administrador
+
+router.get('/productos/admin',(req,res)=>{
+  Libros.find({})
+  .then(Libros=>{
+     res.render('pages/administrador/productosAdmin',{Libros:Libros})
+     })
+     .catch(error =>{
+     res.flash('error_msg','ERROR:',+error)
+      res.render('pages/usuarios/loginAdmin')
+
+     })
+     
+})
+// total de stock administrador
+
+router.get('/total/stock',(req,res)=>{
+  Libros.find({})
+  .then(Libros=>{
+     res.render('pages/administrador/totalStock',{Libros:Libros})
+     })
+     .catch(error =>{
+     res.flash('error_msg','ERROR:',+error)
+      res.render('pages/usuarios/loginAdmin')
+
+     })
+     
+})
+// total libros agotados administrador
+
+router.get('/libros/agotados',(req,res)=>{
+  Libros.find({})
+  .then(Libros=>{
+     res.render('pages/administrador/librosAgotados',{Libros:Libros})
+     })
+     .catch(error =>{
+     res.flash('error_msg','ERROR:',+error)
+      res.render('pages/usuarios/loginAdmin')
+
+     })
+     
+})
+
   //Get cerrar sesion
   router.get("/logout", isAuthenticatedUser, (req, res) => {
     req.logout(() => {}); 
@@ -41,12 +84,15 @@ router.get('/loginAdmin',(req,res)=>{
     res.redirect("/");
   });
   
-  //Get para inscribirse usuarios
+  //Get para registrarse usuarios
  router.get("/registrarse", (req, res) => {
   
 res.render('pages/usuarios/registrarse')
 
  })
+
+ //Get para registrarse administrador
+ 
  router.get("/registrarseAdmin", (req, res) => {
   res.render('pages/administrador/registrarseAdmin')
   
@@ -88,6 +134,30 @@ res.render('pages/usuarios/registrarse')
    
   });
 
+  // Get para mostrar el panel del administrador
+
+  router.get('/panel',(req,res)=>{
+    Libros.find({})
+    .then(Libros=>{
+       res.render('pages/administrador/panel',{Libros:Libros})
+       })
+       .catch(error =>{
+       res.flash('error_msg','ERROR:',+error)
+        res.render('pages/usuarios/loginAdmin')
+  
+       })
+    
+   
+  })
+
+  //Get para mostrar los productos del administrador
+
+  router.get('/productos/admin',(req,res)=>{
+ 
+    res.render('pages/administrador/productosAdmin');
+   
+  })
+  
  //Get editar usuarios
 
   router.get('/editar/:id',(req,res)=>{
@@ -103,25 +173,46 @@ res.redirect('/todosUsuarios')
 
 })
 })
+//Get para editar los productos del administrador
+ 
+router.get('/editar/producto/admin/:id',(req,res)=>{
+  let librosId= {_id:req.params.id}
+  Libros.findOne(librosId)
+  .then(libro=>{
+  
+    res.render('pages/administrador/editarLibros',{libro:libro})
+  })
+  .catch(error=>{
+    req.flash('error_msg', 'ERROR: '+err);
+  res.redirect('/productosAdmin')
+  
+  })
+  })
+
 //Get buscar los producctos
-  router.get("/productos/buscar", (req, res) => {//ver
+
+  router.get("/productos/buscar", (req, res) => {    //verrrrrr
     res.render('pages/administrador/buscar')
   }); 
 
 
 // Post para autenticar al usuario
+
 router.post('/login', passport.authenticate('user', {
   successRedirect: '/',
   failureRedirect: '/login',
   failureFlash: 'Email o contraseña incorrecta, intente nuevamente'
 }));
+
 // Post para autenticar a los administradores
+
 router.post('/login/admin', passport.authenticate('admin', {
-  successRedirect: '/todosUsuarios',
+  successRedirect: '/panel',
   failureRedirect: '/login',
   failureFlash: 'Email o contraseña incorrecta, intente nuevamente'
 }));
 //Get registrar usuario
+
 router.post("/registrarse", async (req, res) => {
   try {
     let { nombre, email, password } = req.body;
@@ -158,7 +249,9 @@ router.post("/registrarseAdmin",(req, res) => {
     res.redirect('/loginAdmin');
   });
 });
-//ruta olvide contraseña
+
+//Get olvide contraseña
+
 router.post('/olvide', (req, res, next) => {
     async.waterfall([
       (done) => {
@@ -196,8 +289,8 @@ router.post('/olvide', (req, res, next) => {
         let smtpTransport = nodemailers.createTransport({
           service: 'Gmail',
           auth: {
-            user: 'diegocolman14@gmail.com',
-            pass: 'ihibzaeectzefovs'
+            user: process.env.CORREO_USER,
+            pass: process.env.CORREO_PASS
           }
         });
   
@@ -283,7 +376,8 @@ router.post('/reset/:token', (req, res)=>{
 });
 
 
-//PUT editar
+//PUT editar usuarios desde el administrador
+
 router.put('/editar/:id', (req, res)=> {
   let searchQuery = {_id : req.params.id};
 
@@ -301,7 +395,8 @@ router.put('/editar/:id', (req, res)=> {
   })
 });
 
-//DELETE eliminar
+//DELETE eliminar usuario desde el administrador
+
 router.delete('/eliminar/usuario/:id', (req, res)=>{
   let searchQuery = {_id : req.params.id};
 
@@ -315,6 +410,26 @@ router.delete('/eliminar/usuario/:id', (req, res)=>{
           req.flash('error_msg', 'ERROR: '+err);
           res.redirect('/todosUsuarios');
       })
+});
+
+//PUT editar productos desde el administrador
+
+router.put('/editar/producto/admin/:id', (req, res)=> {
+  let searchQuery = {_id : req.params.id};
+
+  Libros.updateOne(searchQuery, {$set : {
+      precio : req.body.precio,
+      stock  : req.body.stock
+     
+  }})
+  .then(user => {
+      req.flash('success_msg', 'Usuario modificado exitosamente.');
+      res.redirect('/productos/admin');
+  })
+  .catch(err => {
+      req.flash('error_msg', 'ERROR: '+err);
+      res.redirect('/editarLibros');
+  })
 });
 
 

@@ -15,6 +15,7 @@
     align-items: center;
     background-size: cover;
     width: 100vw;
+    background-color: rgb(235,235,235)
 
    }
 .input-login{
@@ -22,14 +23,15 @@
     width: 320px;
     height: 40px;
     border-radius: 17px;
-   border: 1px solid black;
+   border: 1px solid #e1dddd;
     margin:10px ;
+    padding: 10px;
 }
 
 .titulo-sesion{
     margin: 11px;
 }
-.olvide-login{
+.ancla-olvide-login{
     margin-left: 13px;
     color: blue;
 }
@@ -100,51 +102,49 @@
     justify-content: center;
     background: white;
     height: 72%;
-    border: 1px solid black;
+    border: 1px solid #e1dddd;
     border-radius: 10px;
 
 }
-/*administrador*/
+/*ancla administrador*/
 .login-admin{
-    display: flex;
-    justify-content: flex-end;
-    background-color:#ebebeb ;
+  display: flex;
+  justify-content: flex-end;
+  background-color:#ebebeb ;
+  color: blue;
+  padding-right: 10px;
 }
 
-/*olvide contraseña*/
-.olvide-contraseña{
-    height: 74vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column
-}
+/*----------------------------------------------------------------------------*/
 
-/*todos usuarios*/
-.admin-titulo{
-    margin: 45px;
+
+
+
+
+
+/*tabla editar usuarios admin*/
+.tabla-editar-usuarios{
+  width: 50%;
 }
-.admin-usuarios{
-    height: 56vh ;
-    margin: 45px;
+.tbody-tabla{
+  background-color: rgb(255,193,7);
 }
 
 
-.admin-editar{
-    height: 68vh;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-} 
+
+/*---------------------------------------------------------------------------------*/
 
 
-.input-admin{
-  
-    width: 320px;
-    height: 40px;
-    border-radius: 5px;
-   border: 1px solid black;
-    margin:10px ;
-}  
 
+
+
+  /*productos admin    verrrrrr*/
+
+  .productos-admin{
+    border: 1px solid black;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 11%;
+    margin: 21px;
+
+  }

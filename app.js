@@ -43,9 +43,8 @@ mongoose.connect(`mongodb+srv://${mongoUser}:${mongoPassword}@${mongoCluster}/${
 import bodyParser from "body-parser";
 //schema de libros
 import fs from "fs";
-import Libro from './models/librosmodel.js';
-//router
-const router = express.Router();
+
+
 
 const app = express();
 
@@ -78,13 +77,17 @@ app.use(flash());
 
 // configuracion de middlware
 app.use( (req,res, next)=>{
-  res.locals.success_msg=req.flash(('success_msg'))
-  res.locals.error_msg=req.flash(('error_msg'))
-  res.locals.error = req.flash(('error'));
+  res.locals.success_msg=req.flash('success_msg');
+  res.locals.error_msg=req.flash('error_msg');
+  res.locals.error = req.flash('error');
   res.locals.currentUser = req.user ? req.user.nombre : null;
+  res.locals.currentAdmin = req.user ? req.user.nombre : null;
+    delete req.session.success_msg;
+  delete req.session.error_msg;
+  delete req.session.error;
 next()
 
-})
+});
 
   
 

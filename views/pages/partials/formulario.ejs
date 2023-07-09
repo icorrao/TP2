@@ -1,11 +1,11 @@
-<!-- </div> lo comento porque creo que esta de mas--> 
+ </div> 
 
 <div class='ContenedorFormulario'>
     <div class='contenedor_Titulo_Parrafo'>
     <h2 class='tituloForm'>Siéntete libre de preguntar</h2>
     <p class='parrafo'>Si tiene alguna duda en preguntar o  algun comentario sobre nuetro productos, políticas o cualquier otra cosa, no dude en comunicarse con nuestro amable equipo de atención al cliente; siempre estamos aqui para ayudarlo. </p>
     </div>
-    
+    <%- include('../../pages/partials/mensajes') %>
     <form class='Formulario' action="/enviar-correo"method="POST">
         <div class='input_1'>
             <input class='inputNombre' type="text"name="nombre" placeholder='Nombre'/>
