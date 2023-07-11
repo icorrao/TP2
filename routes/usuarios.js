@@ -48,6 +48,10 @@ router.get('/productos/admin',(req,res)=>{
      })
      
 })
+//agregar libros
+router.get('/agregar/libros', (req, res) => {
+  res.render('pages/administrador/agregarLibros');
+});
 // total de stock administrador
 
 router.get('/total/stock',(req,res)=>{
@@ -194,6 +198,11 @@ router.get('/editar/producto/admin/:id',(req,res)=>{
   router.get("/productos/buscar", (req, res) => {    //verrrrrr
     res.render('pages/administrador/buscar')
   }); 
+
+
+
+
+
 
 
 // Post para autenticar al usuario
@@ -395,6 +404,7 @@ router.put('/editar/:id', (req, res)=> {
   })
 });
 
+
 //DELETE eliminar usuario desde el administrador
 
 router.delete('/eliminar/usuario/:id', (req, res)=>{
@@ -430,6 +440,50 @@ router.put('/editar/producto/admin/:id', (req, res)=> {
       req.flash('error_msg', 'ERROR: '+err);
       res.redirect('/editarLibros');
   })
+});
+
+
+// agregar libros
+/*router.post('/agregar/libros', async (req, res) => {
+  try {
+    const { titulo, autor, precio , imagen, genero, descripcion, stock, editorial,anioPublicacion,ISBN,valoraciones,fechaCreacion  } = req.body;
+    const libros = new Libros({ titulo, autor, precio, imagen, genero, descripcion, stock, editorial,anioPublicacion,ISBN,valoraciones,fechaCreacion });
+    await libros.save();
+    res.redirect('/productosAdmin');
+  } catch (error) {
+    console.error(error);
+    res.send('Ocurrió un error al guardar el producto');
+  }
+});*/
+router.post('/comprar', (req, res) => {
+
+  const productId = req.body.libroId;
+  const cantidad = req.body.stock;
+  Libros.findById(productId)
+    .then(libro => {
+     
+      if (libro.stock >= cantidad) {
+        
+        libro.stock -= cantidad;
+        libro.save()
+          .then(() => {
+            req.flash('success_msg', 'Su compra fue exitosa.');
+            res.redirect('/')
+           
+          })
+          .catch(error => {
+            console.log(error);
+            res.send('Error al actualizar el stock.');
+          });
+      } else {
+        
+        res.send('No hay suficiente stock para realizar la compra.');
+      }
+    })
+    .catch(error => {
+      console.log(error);
+      res.send('Error al buscar el producto.');
+    });
 });
 
 

@@ -73,7 +73,7 @@
 
     <div class="popular">
       
-      <h1>Popular</h1>
+      <h1>Popular</h1> 
       
         <div class="punto"></div>
       <div id="libros-carousel" >
@@ -81,7 +81,7 @@
       <div  class="popular-contenedor">
         <div class="libro-popular">
           
-          <div><a href="/libro/<%= libro._id %>"><img src="<%= libro.imagen %>"></a></div>
+          <div><a href="/libro/<%= libro._id %>"><img class="libro-imagen" src="<%= libro.imagen %>"></a></div>
           <div  class="libro-popular-info">
             <div  class="libro-popular-texto">
               <p><%= libro.titulo %></p>
@@ -94,7 +94,23 @@
                 <input type="hidden" name="precio" value="<%= libro.precio %>">
                 <input type="hidden" name="imagen" value="<%= libro.imagen %>">
                 <button type="submit">Agregar al carrito</button>
+                
               </form>
+              <form action="/comprar" method="post">
+                <input type="hidden" name="libroId" value="<%= libro.id %>">
+                <input type="hidden" name="titulo" value="<%= libro.titulo %>">
+                <input type="hidden" name="precio" value="<%= libro.precio %>">
+                <select id="stock" name="stock">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+                <button type="submit">comprar</button>
+                
+              </form>
+
             </div>
           </div>
         </div>
