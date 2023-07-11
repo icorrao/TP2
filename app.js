@@ -57,7 +57,8 @@ app.use(session({
   saveUninitialized:true,
   
   
-  }))
+  }));
+app.use(flash());
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -73,7 +74,7 @@ passport.use('admin', new LocalStrategy({ usernameField: 'email' }, admin.authen
 passport.serializeUser(admin.serializeUser());
 passport.deserializeUser(admin.deserializeUser());
 //middleware flash mensajes
-app.use(flash());
+
 
 // configuracion de middlware
 app.use( (req,res, next)=>{
@@ -114,14 +115,111 @@ app.use(usuarios)
 app.get("/", (req, res) => {
   res.render('pages/index.ejs')
 });
+// Función para buscar libros en la base de datos por género
+async function obtenerTodosLosLibros() {
+  try {
+    const libros = await mongoose.connection.db.collection('libros').find().toArray();
+    return libros.map((libro) => ({
+      title: libro.titulo,
+      authors: libro.autor,
+      publisher: libro.editorial,
+      thumbnail: libro.imagen,
+      precio: libro.precio,
+      stock: libro.stock,
+      description: libro.descripcion
+    }));
+  } catch (error) {
+    throw new Error('Error en la obtención de libros');
+  }
+}
 
+
+
+//mostrar todos los libros, click en comprar en el nav del header
+app.get('/comprar', async (req, res) => {
+  try {
+    const libros = await obtenerTodosLosLibros();
+    res.render('pages/partials/comprar', { books: libros });
+  } catch (error) {
+    console.error('Error en la obtención de libros:', error.message);
+    res.render('error', { error: 'Error en la obtención de libros' });
+  }
+});
+// Función para buscar libros en la base de datos por género
+async function buscarLibrosPorGenero(genero) {
+  try {
+    const libros = await mongoose.connection.db.collection('libros').find({ genero }).toArray();
+    return libros.map((libro) => ({
+      title: libro.titulo,
+      authors: libro.autor,
+      publisher: libro.editorial,
+      thumbnail: libro.imagen,
+      precio: libro.precio,
+      stock: libro.stock,
+      description: libro.descripcion
+    }));
+  } catch (error) {
+    throw new Error('Error en la búsqueda de libros');
+  }
+}
+
+//ficcion
+app.get('/ficcion', async (req, res) => {
+  try {
+    const libros = await buscarLibrosPorGenero('Ficción');
+    res.render('pages/partials/librosficcion', { books: libros });
+  } catch (error) {
+    console.error('Error en la búsqueda de libros:', error.message);
+    res.render('error', { error: 'Error en la búsqueda de libros' });
+  }
+});
+// Ruta para mostrar libros de "Humanidades"
+app.get('/humanidades', async (req, res) => {
+  try {
+    const libros = await buscarLibrosPorGenero('Humanidades');
+    res.render('pages/partials/libroshumanidades', { books: libros });
+  } catch (error) {
+    console.error('Error en la búsqueda de libros:', error.message);
+    res.render('error', { error: 'Error en la búsqueda de libros' });
+  }
+});
+//arte
+app.get('/arte', async (req, res) => {
+  try {
+    const libros = await buscarLibrosPorGenero('Arte');
+    res.render('pages/partials/librosarte', { books: libros });
+  } catch (error) {
+    console.error('Error en la búsqueda de libros:', error.message);
+    res.render('error', { error: 'Error en la búsqueda de libros' });
+  }
+});
+//infantiles
+app.get('/infantiles', async (req, res) => {
+  try {
+    const libros = await buscarLibrosPorGenero('Infantiles');
+    res.render('pages/partials/librosinfantiles', { books: libros });
+  } catch (error) {
+    console.error('Error en la búsqueda de libros:', error.message);
+    res.render('error', { error: 'Error en la búsqueda de libros' });
+  }
+});
+//autoayuda
+app.get('/autoayuda', async (req, res) => {
+  try {
+    const libros = await buscarLibrosPorGenero('Autoayuda');
+    res.render('pages/partials/librosautoayuda', { books: libros });
+  } catch (error) {
+    console.error('Error en la búsqueda de libros:', error.message);
+    res.render('error', { error: 'Error en la búsqueda de libros' });
+  }
+});
 
 
 
 
 //pruebas
 
-app.get('/comprar', async (req, res) => {
+/*app.get('/comprar', async (req, res) => {
   const query = req.query.buscar || '';
 
 //prueba mostrar libros por consola
@@ -195,7 +293,7 @@ app.get('/ficcion', async (req, res) => {
 });
 //
 
-//pruebas
+//pruebas*/
 /*agregar libros a la base de mongodb
 
 async function buscarYAgregarLibro(titulo) {

@@ -8,10 +8,19 @@
       <% books.forEach((book) => { %>
         <% if (book.thumbnail) { %>
           <div class="book">
-            <h2><%= book.title %></h2>
-            <img src="<%= book.thumbnail %>" alt="Tapa del libro">
-            <p>Autor: <%= book.authors %></p>
-            <p>Editorial: <%= book.publisher %></p>
+            <a href="/libro/<%= book._id %>">
+              <h2><%= book.title %></h2>
+              <img src="<%= book.thumbnail %>" alt="Tapa del libro">
+              <p>Autor: <%= book.authors %></p>
+              <p>Editorial: <%= book.publisher %></p>
+              <% if (book.precio !== undefined) { %>
+                <p>Precio: $<%= book.precio.toString() %></p>
+              <% } %>
+              <% if (book.stock !== undefined) { %>
+                <p>Stock: <%= book.stock.toString() %></p>
+              <% } %>
+            </a>
+            <a href="/comprar-libro/<%= book._id %>" class="comprar-button">Comprar</a> <!-- Agregado: Botón "Comprar" -->
           </div>
         <% } %>
       <% }); %>
@@ -21,8 +30,13 @@
   <% } %>
 </div>
 
-<%- include('footer') %>
 
+
+
+
+
+<%- include('footer') %>
+<!--
 <script>
   const obtenerLibrosDeBaseDeDatos = async () => {
     try {
@@ -70,3 +84,4 @@
   //llamar a la funcion para obtener y renderizar los libros de la base de datos
   obtenerLibrosDeBaseDeDatos();
 </script>
+-->

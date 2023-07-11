@@ -1,6 +1,19 @@
 import express from 'express'
 import nodemailer from 'nodemailer'
+import Libros from '../models/librosmodel.js';
+import Carrito from '../models/carrito.js';
 const router=express.Router()
+
+ // Función para contar la cantidad de libros en el carrito
+ async function contarLibrosEnCarrito() {
+  try {
+    const cantidad = await Carrito.countDocuments();
+    return cantidad;
+  } catch (error) {
+    console.error(error);
+    return 0;
+  }
+}
 
 // Get del footer
 router.get("/politicas",(req,res)=>{
@@ -10,7 +23,15 @@ router.get("/politicas",(req,res)=>{
 })
 //Get del formulario
 router.get('/enviar-correo',(req,res)=>{
-  res.render('pages/correo/correo.ejs')
+  try {
+   // const cantidadLibrosEnCarrito = contarLibrosEnCarrito(); 
+
+    res.render('pages/correo/correo');
+  } catch (error) {
+    console.error(error);
+  
+  }
+  
 })
 
 
@@ -43,78 +64,120 @@ router.post('/enviar-correo', async(req, res) => {
     await transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.error(error);
-        req.flash('success_msg','Error al enviar el correo electrónico');
+        req.flash('error_msg','Error al enviar el correo electrónico');
       } else {
         console.log('Correo electrónico enviado: ' + info.response);
-        req.flash('error_msg','Correo electrónico enviado correctamente');
-        
+        req.flash('success_msg','Correo electrónico enviado correctamente');
+       res.redirect('/')
       }
       
     });
   });
 
- 
 
 // Ruta para mostrar la página principal
-/*router.get('/', (req, res) => {
-  const libros = [
-    { id: 1, nombre: 'Libro 1', precio: 10, imagen: 'libro1.jpg' },
-    { id: 2, nombre: 'Libro 2', precio: 15, imagen: 'libro2.jpg' },
-    { id: 3, nombre: 'Libro 3', precio: 20, imagen: 'libro3.jpg' },
-    { id: 1, nombre: 'Libro 1', precio: 10, imagen: 'libro1.jpg' },
-    { id: 2, nombre: 'Libro 2', precio: 15, imagen: 'libro2.jpg' },
-    { id: 3, nombre: 'Libro 3', precio: 20, imagen: 'libro3.jpg' },
-    { id: 1, nombre: 'Libro 1', precio: 10, imagen: 'libro1.jpg' },
-    { id: 2, nombre: 'Libro 2', precio: 15, imagen: 'libro2.jpg' },
-    { id: 3, nombre: 'Libro 3', precio: 20, imagen: 'libro3.jpg' },
-  ];
-
-  res.render('pages/index', { libros, carrito });
+router.get('/', async (req, res) => {
+  try {
+    const libros = await Libros.find({});
+    const cantidadLibrosEnCarrito = await contarLibrosEnCarrito();
+    console.log(cantidadLibrosEnCarrito)
+    res.render('pages/index', { libros, cantidadLibrosEnCarrito });
+  } catch (error) {
+    console.error(error);
+    req.flash('error_msg', 'Error al obtener los libros');
+    res.redirect('/');
+  }
 });
 
-// Ruta para agregar un libro al carrito
-router.post('/agregar-al-carrito', (req, res) => {
-  const libroId = parseInt(req.body.libroId);
-  console.log(libroId)
-  const libro = {
-    id: libroId,
-    nombre: req.body.nombre,
-    precio: parseInt(req.body.precio),
-    imagen: req.body.imagen,
-  };
 
-  carrito.push(libro);
+// Ruta para agregar un libro al carrito
+router.post('/agregar-al-carrito', async (req, res) => {
+  try {
+    const emailUsuario = req.user.email
+    const libroId = parseInt(req.body.id);
+    const carritoItem = new Carrito({
+      emailUsuario: emailUsuario,
+      id: libroId,
+      titulo: req.body.titulo,
+      stock: req.body.stock,
+      precio: parseInt(req.body.precio),
+      imagen: req.body.imagen,
+     
+    });
+    console.log(emailUsuario)
+     await carritoItem.save();
+
+    console.log('Libro agregado al carrito');
+    req.flash('success_msg', 'Libro agregado al carrito correctamente');
+  } catch (error) {
+    console.error(error);
+    req.flash('error_msg', 'Error al agregar el libro al carrito');
+  }
+
   res.redirect('/');
 });
 
+
+
+
+
 // Ruta para mostrar el carrito de compras
-router.get('/carrito', (req, res) => {
-  const total = carrito.reduce((sum, libro) => sum + libro.precio, 0);
-  res.render('pages/partials/carrito', { carrito, total });
-});
-
-router.post('/carrito/eliminar', (req, res) => {
-  const productoId =Number(req.body.id) 
-  console.log(productoId)
-
-  const indice = carrito.findIndex((producto) => producto.id === productoId);
-  console.log(carrito)
-console.log(indice)
-  if (indice !== -1) {
-    carrito.splice(indice, 1);
-    console.log('Se eliminó el producto del carrito');
-  } else {
-    console.log('No se encontró el producto en el carrito');
+router.get('/carrito', async (req, res) => {
+  if (!req.isAuthenticated()) {
+   
+    res.redirect('/login');
+    return;
   }
 
-  // total del carrito
-  let total = 0;
-  carrito.forEach((producto) => {
-    total += producto.precio;
-  });
+  const emailUsuario = req.user.email; 
 
-  res.render('pages/partials/carrito', { carrito, total });
-});    si no se usa se saca*/
+  try {
+    // Consulta los elementos del carrito asociados con el correo electrónico del usuario
+    const carritoItems = await Carrito.find({ emailUsuario: emailUsuario });
+
+    let total = 0;
+    for (const producto of carritoItems) {
+      total += producto.precio;
+    }
+
+    res.render('pages/partials/carrito', { carrito: carritoItems, total });
+  } catch (error) {
+    console.error(error);
+    req.flash('error_msg', 'Error al obtener el carrito de compras');
+    res.redirect('/');
+  }
+});
+
+
+router.delete('/carrito/eliminar/:id', async (req, res) => {
+  
+    let productoId = {_id : req.params.id};
+    console.log(productoId)
+    Carrito.deleteOne(productoId ) // Elimina el producto del carrito en MongoDB Atlas
+    .then(user=> {
+      req.flash('success_msg', 'Usuario eliminado exitosamente.');
+      res.redirect('/carrito');
+  })
+  .catch(err => {
+      req.flash('error_msg', 'ERROR: '+err);
+      res.redirect('/carrito');
+  })
+    
+});
+// Ruta para mostrar los detalles de un libro
+router.get('/libro/:id', async (req, res) => {
+  try {
+    const libroId = req.params.id;
+    const libro = await Libros.findById(libroId);
+
+    res.render('pages/libros/descripcionLibros', { libro });
+  } catch (error) {
+    console.error(error);
+    req.flash('error_msg', 'Error al obtener los detalles del libro');
+    res.redirect('/');
+  }
+});
+
 
 
 

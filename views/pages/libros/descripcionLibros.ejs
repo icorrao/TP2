@@ -1,0 +1,21 @@
+<%- include('../../pages/partials/head') %>
+<%- include('../../pages/partials/header') %>
+<div class="contenedor-descripcion">
+  <div class="posicion-libro">
+<div class="descripcion-libro">
+<h1><%= libro.titulo %></h1>
+<img src="<%= libro.imagen %>" alt="">
+<p>Autor: <%= libro.autor %></p>
+<p>descripcion:<%= libro.descripcion %></p>
+<p>Precio: <%= libro.precio %></p>
+<form action="/agregar-al-carrito" method="post">
+    <input type="hidden" name="libroId" value="<%= libro.id %>">
+    <input type="hidden" name="titulo" value="<%= libro.titulo %>">
+    <input type="hidden" name="precio" value="<%= libro.precio %>">
+    <input type="hidden" name="imagen" value="<%= libro.imagen %>">
+    <button type="submit">Agregar al carrito</button>
+  </form>
+</div>
+</div>
+</div>
+<%- include('../../pages/partials/footer') %>

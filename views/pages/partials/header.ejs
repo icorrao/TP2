@@ -6,7 +6,7 @@
           <a href="/">Inicio</a>
           <a href="#">Quienes Somos</a>
           <a href="/enviar-correo">Contacto</a>
-          <a href="#">Comprar por Autor</a>
+          <a href="/comprar">Comprar </a>
           <a href="#">Categorías</a>
         </nav>
       </div>
@@ -17,8 +17,8 @@
           <input type="search" name="buscar" id="buscar" placeholder="Buscar" />
         </div>
         <i class="fa-regular fa-bell header-der-icono"></i>
-        <i class="fa-solid fa-cart-shopping header-der-icono"></i>
-        <%- include('../../pages/partials/mensajes') %>
+        <a href="/carrito"><i class="fa-solid fa-cart-shopping header-der-icono"></i></a>
+       
         <% if (currentUser) { %>
           <a href="/logout"><i class="fa-solid fa-user header-der-icono"><%= currentUser %></i>Cerrar sesión </a>
         <% } else { %>

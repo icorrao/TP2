@@ -1,0 +1,34 @@
+<%- include('head') %>
+<%- include('header') %>
+
+<div class="container-comprar container">
+    <h1>Resultados de búsqueda de libros</h1>
+    <% if (books.length > 0) { %>
+      <div class="libros-container">
+        <% books.forEach((book) => { %>
+          <% if (book.thumbnail) { %>
+            <div class="book">
+              <a href="/libro/<%= book._id %>">
+                <h2><%= book.title %></h2>
+                <img src="<%= book.thumbnail %>" alt="Tapa del libro">
+                <p>Autor: <%= book.authors %></p>
+                <p>Editorial: <%= book.publisher %></p>
+                <% if (book.precio !== undefined) { %>
+                  <p>Precio: $<%= book.precio.toString() %></p>
+                <% } %>
+                <% if (book.stock !== undefined) { %>
+                  <p>Stock: <%= book.stock.toString() %></p>
+                <% } %>
+              </a>
+              <a href="/comprar-libro/<%= book._id %>" class="comprar-button">Comprar</a> <!-- Agregado: Botón "Comprar" -->
+            </div>
+          <% } %>
+        <% }); %>
+      </div>
+    <% } else { %>
+      <p>No se encontraron libros.</p>
+    <% } %>
+  </div>
+  
+
+<%- include('footer') %>

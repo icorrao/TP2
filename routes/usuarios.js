@@ -168,7 +168,7 @@ usuarios.findOne(usuarioId)
   res.render('pages/administrador/editarUsuarios',{usuarios:usuarios})
 })
 .catch(error=>{
-  req.flash('error_msg', 'ERROR: '+err);
+  req.flash('error_msg', 'ERROR: '+error);
 res.redirect('/todosUsuarios')
 
 })
@@ -183,7 +183,7 @@ router.get('/editar/producto/admin/:id',(req,res)=>{
     res.render('pages/administrador/editarLibros',{libro:libro})
   })
   .catch(error=>{
-    req.flash('error_msg', 'ERROR: '+err);
+    req.flash('error_msg', 'ERROR: '+error);
   res.redirect('/productosAdmin')
   
   })
