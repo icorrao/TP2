@@ -5,24 +5,40 @@
   <h1>Resultados de búsqueda de libros</h1>
   <% if (books.length > 0) { %>
     <div class="libros-container">
-      <% books.forEach((book) => { %>
-        <% if (book.thumbnail) { %>
-          <div class="book">
-            <a href="/libro/<%= book._id %>">
-              <h2><%= book.title %></h2>
-              <img src="<%= book.thumbnail %>" alt="Tapa del libro">
-              <p>Autor: <%= book.authors %></p>
-              <p>Editorial: <%= book.publisher %></p>
-              <% if (book.precio !== undefined) { %>
-                <p>Precio: $<%= book.precio.toString() %></p>
-              <% } %>
-              <% if (book.stock !== undefined) { %>
-                <p>Stock: <%= book.stock.toString() %></p>
-              <% } %>
-            </a>
-            <a href="/comprar-libro/<%= book._id %>" class="comprar-button">Comprar</a> <!-- Agregado: Botón "Comprar" -->
+      <% books.forEach((libro) => { %>
+        <div class="book">
+          <h2><%= libro.titulo %></h2>
+          <a href="/libro/<%= libro._id %>"><img src="<%= libro.imagen %>" alt="Tapa del libro"></a>
+          <p>Autor: <%= libro.autor %></p>
+          <% if (libro.precio !== undefined) { %>
+            <p>Precio: $<%= libro.precio %></p>
+          <% } %>
+          <% if (libro.stock !== undefined) { %>
+            <p>Stock: <%= libro.stock %></p>
+          <% } %>
+          <div class="libro-popular-comprar">
+            <form action="/agregar-al-carrito" method="post">
+              <input type="hidden" name="libroId" value="<%= libro._id %>">
+              <input type="hidden" name="titulo" value="<%= libro.titulo %>">
+              <input type="hidden" name="precio" value="<%= libro.precio %>">
+              <input type="hidden" name="imagen" value="<%= libro.imagen %>">
+              <button type="submit">Agregar al carrito</button>
+            </form>
+            <form action="/comprar" method="post">
+              <input type="hidden" name="libroId" value="<%= libro._id %>">
+              <input type="hidden" name="titulo" value="<%= libro.titulo %>">
+              <input type="hidden" name="precio" value="<%= libro.precio %>">
+              <select id="stock" name="stock">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+              <button type="submit">Comprar</button>
+            </form>
           </div>
-        <% } %>
+        </div>
       <% }); %>
     </div>
   <% } else { %>
@@ -30,58 +46,11 @@
   <% } %>
 </div>
 
-
-
-
-
-
 <%- include('footer') %>
-<!--
-<script>
-  const obtenerLibrosDeBaseDeDatos = async () => {
-    try {
-      const books = await buscarEnBaseDeDatos();
 
-      //renderizar los libros
-      const librosContainer = document.querySelector('.libros-container');
-      librosContainer.innerHTML = '';
-      if (books.length > 0) {
-        books.forEach((book) => {
-          if (book.thumbnail) {
-            const bookElement = document.createElement('div');
-            bookElement.classList.add('book');
 
-            const titleElement = document.createElement('h2');
-            titleElement.innerText = book.title;
-            bookElement.appendChild(titleElement);
 
-            const imgElement = document.createElement('img');
-            imgElement.src = book.thumbnail;
-            imgElement.alt = 'Tapa del libro';
-            bookElement.appendChild(imgElement);
 
-            const authorElement = document.createElement('p');
-            authorElement.innerText = `Autor: ${book.authors}`;
-            bookElement.appendChild(authorElement);
 
-            const publisherElement = document.createElement('p');
-            publisherElement.innerText = `Editorial: ${book.publisher}`;
-            bookElement.appendChild(publisherElement);
 
-            librosContainer.appendChild(bookElement);
-          }
-        });
-      } else {
-        const noBooksElement = document.createElement('p');
-        noBooksElement.innerText = 'No se encontraron libros.';
-        librosContainer.appendChild(noBooksElement);
-      }
-    } catch (error) {
-      console.error('Error al obtener los libros de la base de datos:', error);
-    }
-  };
 
-  //llamar a la funcion para obtener y renderizar los libros de la base de datos
-  obtenerLibrosDeBaseDeDatos();
-</script>
--->

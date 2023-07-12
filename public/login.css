@@ -117,7 +117,39 @@
 
 /*----------------------------------------------------------------------------*/
 
+/*registro admin*/
+.contenedor-registrarse-admin{
+  height: 74vh;
+}
+.titulo-registrarse-admin{
+  margin-right: 61px;
+}
+.ancla-registrarse-admin{
+  margin-left: 16px;
+  text-decoration: none;
+}
 
+.admin-registrarse{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  height: 100%;
+  border: 1px solid #e1dddd;
+  border-radius: 10px;
+
+
+}
+.input-registrarse-admin{
+  width: 320px;
+  height: 40px;
+  border-radius: 17px;
+  border: 1px solid #e1dddd;
+  margin: 10px;
+  padding: 10px;
+
+}
 
 
 

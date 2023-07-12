@@ -11,7 +11,7 @@ const router=express.Router()
 import usuarios from '../models/usuariosmodels.js'
 import admin from '../models/adminmodels.js'
 import Libros from '../models/librosmodel.js';
-
+import Carrito from '../models/carrito.js'
 // Checks if user is authenticated
 function isAuthenticatedUser(req, res, next) {
   if(req.isAuthenticated()) {
@@ -458,11 +458,15 @@ router.put('/editar/producto/admin/:id', (req, res)=> {
 router.post('/comprar', (req, res) => {
 
   const productId = req.body.libroId;
+  console.log(productId)
   const cantidad = req.body.stock;
+  
+  const emailUsuario = req.user.email
+
   Libros.findById(productId)
     .then(libro => {
      
-      if (libro.stock >= cantidad) {
+      if (libro.stock >= cantidad && emailUsuario ) {
         
         libro.stock -= cantidad;
         libro.save()
@@ -485,7 +489,40 @@ router.post('/comprar', (req, res) => {
       res.send('Error al buscar el producto.');
     });
 });
+router.post('/comprar/carrito', (req, res) => {
 
+  const productId = req.body.libroId;
+ 
+  const cantidad = req.body.stock;
+  
+  const emailUsuario = req.user.email
+
+  Carrito.findById(productId)
+    .then(libro => {
+     
+      if (libro.stock >= cantidad && emailUsuario ) {
+        
+        libro.stock -= cantidad;
+        libro.save()
+          .then(() => {
+            req.flash('success_msg', 'Su compra fue exitosa.');
+            res.redirect('/')
+           
+          })
+          .catch(error => {
+            console.log(error);
+            res.send('Error al actualizar el stock.');
+          });
+      } else {
+        
+        res.send('No hay suficiente stock para realizar la compra.');
+      }
+    })
+    .catch(error => {
+      console.log(error);
+      res.send('Error al buscar el producto.');
+    });
+});
 
 export default router
 

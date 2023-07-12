@@ -115,23 +115,114 @@ app.use(usuarios)
 app.get("/", (req, res) => {
   res.render('pages/index.ejs')
 });
-// Función para buscar libros en la base de datos por género
+
+
+//importar schema
+import Libro from './models/librosmodel.js';
+
+// Función para obtener todos los libros para seccion compras
 async function obtenerTodosLosLibros() {
   try {
-    const libros = await mongoose.connection.db.collection('libros').find().toArray();
+    const libros = await Libro.find({});
     return libros.map((libro) => ({
-      title: libro.titulo,
-      authors: libro.autor,
-      publisher: libro.editorial,
-      thumbnail: libro.imagen,
+      _id: libro._id,
+      titulo: libro.titulo,
+      autor: libro.autor,
+      editorial: libro.editorial,
+      imagen: libro.imagen,
       precio: libro.precio,
       stock: libro.stock,
-      description: libro.descripcion
+      descripcion: libro.descripcion
     }));
   } catch (error) {
     throw new Error('Error en la obtención de libros');
   }
 }
+
+// Función para buscar libros en la base de datos por género
+async function buscarLibrosPorGenero(genero) {
+  try {
+    const libros = await Libro.find({ genero: genero }).exec();
+    return libros.map((libro) => ({
+      _id: libro._id,
+      titulo: libro.titulo,
+      autor: libro.autor,
+      editorial: libro.editorial,
+      imagen: libro.imagen,
+      precio: libro.precio,
+      stock: libro.stock,
+      descripcion: libro.descripcion,
+    }));
+  } catch (error) {
+    throw new Error('Error en la búsqueda de libros');
+  }
+}
+
+//rutas
+//mostrar todos los libros, click en comprar en el nav del header
+app.get('/comprar', async (req, res) => {
+  try {
+    const libros = await obtenerTodosLosLibros();
+    res.render('pages/partials/comprar', { libros });
+  } catch (error) {
+    console.error('Error en la obtención de libros:', error.message);
+    res.render('error', { error: 'Error en la obtención de libros' });
+  }
+});
+
+
+//ficcion
+app.get('/ficcion', async (req, res) => {
+  try {
+    const libros = await buscarLibrosPorGenero('Ficción');
+    res.render('pages/partials/librosficcion', { books: libros });
+  } catch (error) {
+    console.error('Error en la búsqueda de libros:', error.message);
+    res.render('error', { error: 'Error en la búsqueda de libros' });
+  }
+});
+
+// Ruta para mostrar libros de "Humanidades"
+app.get('/humanidades', async (req, res) => {
+  try {
+    const libros = await buscarLibrosPorGenero('Humanidades');
+    res.render('pages/partials/libroshumanidades', { books: libros });
+  } catch (error) {
+    console.error('Error en la búsqueda de libros:', error.message);
+    res.render('error', { error: 'Error en la búsqueda de libros' });
+  }
+});
+//arte
+app.get('/arte', async (req, res) => {
+  try {
+    const libros = await buscarLibrosPorGenero('Arte');
+    res.render('pages/partials/librosarte', { books: libros });
+  } catch (error) {
+    console.error('Error en la búsqueda de libros:', error.message);
+    res.render('error', { error: 'Error en la búsqueda de libros' });
+  }
+});
+//infantiles
+app.get('/infantiles', async (req, res) => {
+  try {
+    const libros = await buscarLibrosPorGenero('Infantiles');
+    res.render('pages/partials/librosinfantiles', { books: libros });
+  } catch (error) {
+    console.error('Error en la búsqueda de libros:', error.message);
+    res.render('error', { error: 'Error en la búsqueda de libros' });
+  }
+});
+//autoayuda
+app.get('/autoayuda', async (req, res) => {
+  try {
+    const libros = await buscarLibrosPorGenero('Autoayuda');
+    res.render('pages/partials/librosautoayuda', { books: libros });
+  } catch (error) {
+    console.error('Error en la búsqueda de libros:', error.message);
+    res.render('error', { error: 'Error en la búsqueda de libros' });
+  }
+});
+
 
 
 
@@ -145,23 +236,7 @@ app.get('/comprar', async (req, res) => {
     res.render('error', { error: 'Error en la obtención de libros' });
   }
 });
-// Función para buscar libros en la base de datos por género
-async function buscarLibrosPorGenero(genero) {
-  try {
-    const libros = await mongoose.connection.db.collection('libros').find({ genero }).toArray();
-    return libros.map((libro) => ({
-      title: libro.titulo,
-      authors: libro.autor,
-      publisher: libro.editorial,
-      thumbnail: libro.imagen,
-      precio: libro.precio,
-      stock: libro.stock,
-      description: libro.descripcion
-    }));
-  } catch (error) {
-    throw new Error('Error en la búsqueda de libros');
-  }
-}
+
 
 //ficcion
 app.get('/ficcion', async (req, res) => {
@@ -217,133 +292,7 @@ app.get('/autoayuda', async (req, res) => {
 
 
 
-//pruebas
 
-/*app.get('/comprar', async (req, res) => {
-  const query = req.query.buscar || '';
-
-//prueba mostrar libros por consola
-const response = await client.volumes.list({
-  q: '', // reemplazar x por nombre de libro
-});
-
-
-
-
-  try {
-    const books = await buscarPorConsulta(query);
-    res.render('pages/partials/comprar', { books });
-  } catch (error) {
-    console.error('Error en la búsqueda de libros:', error.message);
-    res.render('pages/comprar', { books: [] });
-  }
-});
-
-
-async function buscarPorConsulta(query) {
-  try {
-    const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&langRestrict=es&key=${API_KEY}`;
-    const response = await axios.get(url);
-    return response.data.items
-      .filter((book) => book.volumeInfo && book.volumeInfo.language === 'es' && book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail && book.volumeInfo.authors) // Filtrar libros con descripciones en castellano, con imagen y con autor
-      .map((book) => ({
-        title: book.volumeInfo.title,
-        authors: book.volumeInfo.authors,
-        publisher: book.volumeInfo.publisher,
-        thumbnail: book.volumeInfo.imageLinks.thumbnail, // Utilizar la propiedad thumbnail de la API de Google Books
-      }));
-  } catch (error) {
-    throw new Error('Error en la búsqueda de libros');
-  }
-}
-
-//funcion para conseguir los datos de la base
-async function buscarEnBaseDeDatos() { //<--- mapea libros de la base de datos para utilizar en el archivo librosficcion.ejs
-  try {
-    // obtiene la referencia a la base de datos
-    const db = mongoose.connection.db;
-
-    // realiza la consulta a la colección "libros" y obtiene los resultados
-    const libros = await db.collection('libros').find().toArray();
-
-    // mapea los resultados
-    return libros.map((libro) => ({
-      title: libro.titulo,
-      authors: libro.autor,
-      publisher: libro.editorial,
-      thumbnail: libro.imagen,
-    }));
-  } catch (error) {
-    throw new Error('Error en la búsqueda de libros');
-  }
-}
-
-// ruta a la seccion de ficcion
-app.get('/ficcion', async (req, res) => {
-  try {
-    //obtener los libros de la base de datos
-    const libros = await buscarEnBaseDeDatos();
-
-    //renderizar "librosficcion" y pasar los libros como variable
-    res.render('pages/partials/librosficcion', { books: libros }); //pasar los libros como variable "books"
-  } catch (error) {
-    console.error('Error en la búsqueda de libros:', error.message);
-    res.render('error', { error: 'Error en la búsqueda de libros' });
-  }
-});
-//
-
-//pruebas*/
-/*agregar libros a la base de mongodb
-
-async function buscarYAgregarLibro(titulo) {
-  try {
-    //realiza la búsqueda en la API de Google Books
-    const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(titulo)}&langRestrict=es&key=${API_KEY}`;
-    const response = await axios.get(url);
-    const book = response.data.items.find(item => item.volumeInfo.title === titulo); // Busca el libro con el título exacto
-
-    //verifica si se encontró el libro
-    if (!book) {
-      throw new Error(`No se encontró el libro "${titulo}"`);
-    }
-
-    const { title, authors, publisher, imageLinks, categories, description } = book.volumeInfo;
-    const thumbnail = imageLinks.thumbnail;
-    const image = imageLinks; // Agregar la propiedad image con todos los enlaces de imagen disponibles
-
-    const libroData = {
-      titulo: title,
-      genero: categories ? categories[0] : '', 
-      autor: authors ? authors.join(', ') : '',
-      descripcion: description || '',
-      stock: 0,
-      precio: 0,
-      imagen: thumbnail,
-      editorial: publisher || '',
-      anioPublicacion: 0,
-      ISBN: '',
-      valoraciones: [],
-      fechaCreacion: new Date()
-    };
-    const libro = new Libro(libroData);
-
-    //guarda el libro en la base de datos
-    await libro.save();
-
-    console.log('Libro agregado correctamente');
-  } catch (error) {
-    console.error('Error al agregar el libro:', error.message);
-  }
-}
-
-
-// ejecucion de funcion para agregar un libro
-const tituloLibro = 'El psicoanalista'; <-- cambiar por cualquier titulo de libro
-buscarYAgregarLibro(tituloLibro);
-*/
-
-//
 
 app.listen(process.env.PUERTO, () => {
   console.log("servidor ejecutado");

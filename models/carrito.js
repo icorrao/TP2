@@ -14,6 +14,10 @@ const carritoSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  stock:{
+    type: Number,
+    required: true
+  },
   emailUsuario: {
     type: String,
     required: true

@@ -1,4 +1,5 @@
 .container-libros-agotados{
+    height: 74vh;
     display: flex;
     flex-direction: column;
     align-items: center;

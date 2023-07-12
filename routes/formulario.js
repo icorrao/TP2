@@ -153,7 +153,7 @@ router.delete('/carrito/eliminar/:id', async (req, res) => {
   
     let productoId = {_id : req.params.id};
     console.log(productoId)
-    Carrito.deleteOne(productoId ) // Elimina el producto del carrito en MongoDB Atlas
+    Carrito.deleteOne(productoId ) 
     .then(user=> {
       req.flash('success_msg', 'Usuario eliminado exitosamente.');
       res.redirect('/carrito');
