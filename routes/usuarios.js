@@ -455,74 +455,87 @@ router.put('/editar/producto/admin/:id', (req, res)=> {
     res.send('Ocurrió un error al guardar el producto');
   }
 });*/
-router.post('/comprar', (req, res) => {
-
+router.post('/comprar', isAuthenticatedUser, (req, res) => {
   const productId = req.body.libroId;
-  console.log(productId)
   const cantidad = req.body.stock;
-  
-  const emailUsuario = req.user.email
+  const emailUsuario = req.user.email;
 
   Libros.findById(productId)
     .then(libro => {
-     
-      if (libro.stock >= cantidad && emailUsuario ) {
-        
+      if (libro.stock >= cantidad && emailUsuario) {
         libro.stock -= cantidad;
         libro.save()
           .then(() => {
             req.flash('success_msg', 'Su compra fue exitosa.');
-            res.redirect('/')
-           
+
+            // Eliminar el libro del carrito
+            Carrito.findByIdAndRemove(productId)
+              .then(() => {
+                res.redirect('/');
+              })
+              .catch(error => {
+                console.log(error);
+                res.send('Error al eliminar el libro del carrito.');
+              });
           })
           .catch(error => {
             console.log(error);
             res.send('Error al actualizar el stock.');
           });
       } else {
-        
         res.send('No hay suficiente stock para realizar la compra.');
       }
     })
     .catch(error => {
+      req.flash('error_msg', 'Error al buscar el producto.');
       console.log(error);
-      res.send('Error al buscar el producto.');
+      res.redirect('/');
     });
 });
-router.post('/comprar/carrito', (req, res) => {
 
+
+
+router.post('/comprar/carrito', isAuthenticatedUser, (req, res) => {
   const productId = req.body.libroId;
- 
   const cantidad = req.body.stock;
-  
-  const emailUsuario = req.user.email
+  const emailUsuario = req.user.email;
 
   Carrito.findById(productId)
     .then(libro => {
-     
-      if (libro.stock >= cantidad && emailUsuario ) {
-        
+      if (libro.stock >= cantidad && emailUsuario) {
         libro.stock -= cantidad;
         libro.save()
           .then(() => {
             req.flash('success_msg', 'Su compra fue exitosa.');
-            res.redirect('/')
-           
+
+         
+            Carrito.findByIdAndRemove(productId)
+              .then(() => {
+                res.redirect('/');
+              })
+              .catch(error => {
+                req.flash('error_msg', 'Error al eliminar el libro del carrito.');
+                console.log(error);
+                res.redirect('/');
+              });
           })
           .catch(error => {
+            req.flash('error_msg', 'Error al actualizar el stock.');
             console.log(error);
-            res.send('Error al actualizar el stock.');
+            res.redirect('/');
           });
       } else {
-        
-        res.send('No hay suficiente stock para realizar la compra.');
+        req.flash('error_msg', 'No hay suficiente stock para realizar la compra.');
+        res.redirect('/');
       }
     })
     .catch(error => {
+      req.flash('error_msg', 'Error al buscar el producto.');
       console.log(error);
-      res.send('Error al buscar el producto.');
+      res.redirect('/');
     });
 });
+
 
 export default router
 

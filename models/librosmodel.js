@@ -50,7 +50,7 @@ const libroSchema = new mongoose.Schema({
     default: Date.now
   }
 });
-
+libroSchema.index({ titulo: 'text', autor: 'text', editorial: 'text', descripcion: 'text' });
 const Libro = mongoose.model('Libro', libroSchema);
 
 export default Libro;

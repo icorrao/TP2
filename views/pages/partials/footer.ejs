@@ -91,7 +91,33 @@
         });
       });
     </script>
-
+    <script>
+      const menuIcon = document.getElementById('menu-icon');
+      const menuContent = document.querySelector('.menu-content');
+    
+      menuIcon.addEventListener('click', () => {
+        menuContent.classList.toggle('active');
+      });
+   
+    
+    </script>
+      <script>
+        document.getElementById('buscar').addEventListener('keydown', function(event) {
+          if (event.key === 'Enter') {
+            event.preventDefault();
+            buscarLibros();
+          }
+        });
+      
+        document.getElementById('buscador').addEventListener('click', function(event) {
+          buscarLibros();
+        });
+      
+        function buscarLibros() {
+          const query = document.getElementById('buscar').value;
+          window.location.href = '/buscar?query=' + query;
+        }
+      </script>
 
 </body>
 </html>

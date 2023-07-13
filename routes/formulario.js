@@ -14,6 +14,14 @@ const router=express.Router()
     return 0;
   }
 }
+// Checks if user is authenticated
+function isAuthenticatedUser(req, res, next) {
+  if(req.isAuthenticated()) {
+      return next();
+  }
+  req.flash('error_msg', 'Por favor inicie sesión.')
+  res.redirect('/login');
+}
 
 // Get del footer
 router.get("/politicas",(req,res)=>{
@@ -91,7 +99,7 @@ router.get('/', async (req, res) => {
 
 
 // Ruta para agregar un libro al carrito
-router.post('/agregar-al-carrito', async (req, res) => {
+router.post('/agregar-al-carrito',isAuthenticatedUser, async (req, res) => {
   try {
     const emailUsuario = req.user.email
     const libroId = parseInt(req.body.id);

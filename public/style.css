@@ -36,7 +36,9 @@ header {
   width: 100%;
   z-index: 100;
 }
-
+.sidebar a:hover {
+  font-weight: bold;
+}
 .header-izq {
   display: flex;
   align-items: center;
@@ -90,7 +92,29 @@ input[type="search"]:focus {
   background-color: var(--blanco);
   border-radius: 1rem;
   padding: 0.5rem;
+  
 }
+
+.header-der i.fa-regular.fa-bell:hover,
+.header-der i.fa-solid.fa-cart-shopping:hover,
+.header-der a i.fa-solid.fa-user:hover {
+  color: red;
+  cursor: pointer;
+}
+
+
+
+
+.header-der i.fa-regular.fa-bell,
+.header-der i.fa-solid.fa-cart-shopping,
+.header-der a i.fa-solid.fa-user {
+  background-color: #ffc107;
+  color: black;
+  padding: 5px;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+
 
 .buscador {
   position: relative;
@@ -301,7 +325,7 @@ input[type="search"]:focus {
   align-items: center;
   justify-content: space-between;
   background-color: var(--amarillo);
-  height: 4rem;
+  height: 6rem;
   border: 0.0625rem solid var(--negro);
 }
 
@@ -463,7 +487,7 @@ padding: 1.25rem;
 }
 
 h2, p {
-margin: 0.625rem 0;
+margin:2px 14px;
 }
 
 
@@ -573,42 +597,52 @@ dataasd */
 @media (min-width: 390px ) and (max-width: 767px) {
   header{
     padding: 0rem;
-    height: 14rem;
-    flex-direction: column;
+    height: 4rem;
+    
   }
-
+#logo{
+  font-size: 1.5rem;
+}
   .header-izq {
     flex-direction: column;
     gap: 0rem;
+    width: 111px;
   }
 
-  .header-der {
-    flex-direction: row;
-    gap: 0rem;
-    justify-items: end;
-    align-items: center;
-    margin-bottom: 1rem;
+.header-der,nav,.menu-content{
+  display: none;
+}
+nav a{
+  font-size: 14px;
+  padding: 3px;
+}
 
-  }
 
-  nav a {
-    display: flex;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1.2rem;
-    padding: 0rem 0rem;
-    justify-content: center; /*centrar unicio contacto ettc*/
-  }
+.menu-content.active {
+  display: flex;
+  
+}
+input[type="search"] {
+  padding: 0.8rem;
+  padding-left: 1.3rem;
+  text-indent: 1.3rem;
+  width: 137px;
+  border: none;
+  border-radius: 1.4rem;
+}
+.fa-regular, .far {
+  font-weight: 400;
+  height: 33px;
+}
+.menu-icon{
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 35px;
+}
+#menu-icon{
+  margin-left: 10px;
+}
 
-  input[type="search"] {
-    padding: 0.5rem;
-    padding-left: 1.3rem;
-    text-indent: 1.3rem;
-    width: 8rem;
-    border: none;
-    border-radius: 1.4rem;
-    margin-right: 1rem;
-  }
 
   /*HERO*/
 
@@ -777,7 +811,7 @@ dataasd */
   .ofertas-contenedor {
     display: flex;
     flex-wrap: wrap; /* Añade esta propiedad para que los elementos se envuelvan cuando el ancho de la pantalla sea menor */
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     align-items: center;
     border-top: 0.125rem solid var(--negro);
@@ -936,6 +970,12 @@ dataasd */
 
 /*RESPONSIVE 768x1024 */
 @media (min-width: 768px) and (max-width: 1439px) {
+ 
+    .menu-icon,
+    .menu-content {
+      display: none;
+    }
+  
   header {
     height: 4.4rem;
     display: flex;
@@ -1136,12 +1176,17 @@ dataasd */
   .popular-contenedor {
     display: flex;
     justify-content: space-between;
+    padding: 10px;
   }
   
   .libro-popular {
     width: 100%;
     
   }
+  .libro-imagen{
+    width: 100%;
+    height: 40vh;
+  };
   
   .libro-imagen-1,
   .libro-imagen-2,
@@ -1166,7 +1211,7 @@ dataasd */
     align-items: center;
     justify-content: space-between;
     background-color: var(--amarillo);
-    height: 4rem;
+    height: 6rem;
     border: 0.0625rem solid var(--negro);
   }
   
@@ -1429,12 +1474,17 @@ dataasd */
 
 
 
-@media (min-width: 1440px) and (max-width: 1441px){
+@media (min-width: 1440px) and (max-width: 2000px){
+  .menu-icon,
+  .menu-content {
+    display: none;
+  }
+
 
   header {
     height: 4.4rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     padding: 0 2rem; /* Reducir el padding lateral para ajustar el contenido */
     background-color: var(--amarillo);
@@ -1448,7 +1498,7 @@ dataasd */
 
   .genero {
     display: flex;
-    justify-content: space-between;
+    justify-content:space-evenly;
   }
 
   /* About Us */

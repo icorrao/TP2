@@ -157,6 +157,24 @@ async function buscarLibrosPorGenero(genero) {
     throw new Error('Error en la búsqueda de libros');
   }
 }
+//BUSCADOR
+async function buscarLibrosEnDB(query) {
+  try {
+    const libros = await Libro.find({ $text: { $search: query } });
+    return libros.map((libro) => ({
+      _id: libro._id,
+      titulo: libro.titulo,
+      autor: libro.autor,
+      editorial: libro.editorial,
+      imagen: libro.imagen,
+      precio: libro.precio,
+      stock: libro.stock,
+      descripcion: libro.descripcion
+    }));
+  } catch (error) {
+    throw new Error(`Error en la búsqueda de libros en la base de datos: ${error.message}`);
+  }
+}
 
 //rutas
 //mostrar todos los libros, click en comprar en el nav del header
@@ -167,6 +185,17 @@ app.get('/comprar', async (req, res) => {
   } catch (error) {
     console.error('Error en la obtención de libros:', error.message);
     res.render('error', { error: 'Error en la obtención de libros' });
+  }
+});
+//BUSCAR
+app.get('/buscar', async (req, res) => {
+  try {
+    const query = req.query.query;
+    const libros = await buscarLibrosEnDB(query);
+    res.render('pages/partials/busqueda', { libros });
+  } catch (error) {
+    console.error('Error en la búsqueda de libros:', error.message);
+    res.render('error', { error: 'Error en la búsqueda de libros' });
   }
 });
 

@@ -84,8 +84,9 @@
           <div><a href="/libro/<%= libro._id %>"><img class="libro-imagen" src="<%= libro.imagen %>"></a></div>
           <div  class="libro-popular-info">
             <div  class="libro-popular-texto">
-              <p><%= libro.titulo %></p>
-              <p><%= libro.precio %></p>
+              <p>Autor:<%= libro.autor %></p>
+              <p>Stock:<%= libro.stock %></p>
+              <p>$:<%= libro.precio %></p>
             </div>
             <div class="libro-popular-comprar">
               <form action="/agregar-al-carrito" method="post">
