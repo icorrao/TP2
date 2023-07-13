@@ -198,9 +198,12 @@
   width: 100%;
   margin: 5% auto;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+ margin-left:28px ;
+ align-items:center;
+ flex-direction: column;
+ margin-top: 37px;
+  
+  
 }
 
 .titulo_redes {
@@ -285,6 +288,7 @@
     width: 100vw;
     height: 67%;
     display: flex;
+    justify-content: center;
   }
   
   .menuFooter{

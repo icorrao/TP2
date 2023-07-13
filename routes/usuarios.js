@@ -421,6 +421,20 @@ router.delete('/eliminar/usuario/:id', (req, res)=>{
           res.redirect('/todosUsuarios');
       })
 });
+router.delete('/eliminar/libro/:id', (req, res)=>{
+  let searchQuery = {_id : req.params.id};
+
+  Libros.deleteOne(searchQuery)
+  
+      .then(libro=> {
+          req.flash('success_msg', 'Libro eliminado exitosamente.');
+          res.redirect('/productos/admin');
+      })
+      .catch(err => {
+          req.flash('error_msg', 'ERROR: '+err);
+          res.redirect('/productos/admin');
+      })
+});
 
 //PUT editar productos desde el administrador
 

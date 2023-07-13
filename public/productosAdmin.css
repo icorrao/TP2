@@ -48,8 +48,21 @@
 .ancla-productos-1{
     text-decoration: none;
     background-color: #47e547;
-    font-size: 20px;
+    font-size: 18px;
     border-radius: 10px;
     width: 74px;
     text-align: center;
+}
+.btn-eliminar-libro{
+    background-color: #f87047;
+    font-size: 16px;
+    border-radius: 10px;
+    width: 74px;
+    text-align: center;
+    border: none;
+    height: 32px;
+    margin-top: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+
 }

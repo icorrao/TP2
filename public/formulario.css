@@ -119,6 +119,32 @@
   
   
   @media (min-width: 390px ) and (max-width: 767px){
+    .contenedor_Titulo_Parrafo {
+      width: 100vw;
+      height: 218px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      color: rgb(255,255,255);
+  }
+  .tituloForm {
+    color: white;
+    font-size: 31px;
+    margin-bottom: -14px;
+    font-family: 'Open Sans', sans-serif;
+}
+.parrafo {
+  color: white;
+  width: 81%;
+  font-size: 16px;
+  text-align: center;
+  margin-top: 29px;
+  font-family: 'Roboto', sans-serif;
+}
+.Formulario {
+  margin-top: 16px;
+}
     .inputNombre {
       width: 136px;
       height: 40px;
@@ -144,6 +170,32 @@
 
   }
   @media (min-width: 767px ) and (max-width: 1440px){
+    .contenedor_Titulo_Parrafo {
+      width: 100vw;
+      height: 208px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      color: rgb(255,255,255);
+  }
+  .tituloForm {
+    color: white;
+    font-size: 31px;
+    margin-bottom: -4px;
+    font-family: 'Open Sans', sans-serif;
+}
+.parrafo {
+  color: white;
+  width: 65%;
+  font-size: 16px;
+  text-align: center;
+  margin-top: 14px;
+  font-family: 'Roboto', sans-serif;
+}
+.Formulario {
+  margin-top: 17px;
+}
     .inputNombre {
       width: 250px;
       height: 40px;

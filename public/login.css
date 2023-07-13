@@ -2,7 +2,7 @@
 /*registrarse*/
 .contenedor-login{
     background-color: rgb(235,235,235);
-    height: 53vh;
+    height: 45vh;
     display: flex;
     justify-content: space-evenly;
     align-items: flex-start;
@@ -112,7 +112,7 @@
   justify-content: flex-end;
   background-color:#ebebeb ;
   color: blue;
-  padding-right: 10px;
+  padding: 19px;
 }
 
 /*----------------------------------------------------------------------------*/

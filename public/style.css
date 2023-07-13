@@ -573,7 +573,9 @@ opacity: 1;
 display: flex;
 justify-content: center;
 }
-
+.divicion-correo{
+  height: 4vh;
+}
 
 
 /* asdasdasd
@@ -776,7 +778,7 @@ input[type="search"] {
   align-items: center;
   justify-content: space-between;
   background-color: var(--amarillo);
-  height: 3rem; /* Ajusta el alto para adaptarse a pantallas más pequeñas */
+  height: 6rem; /* Ajusta el alto para adaptarse a pantallas más pequeñas */
   border: 0.0625rem solid var(--negro);
 }
 
@@ -1211,7 +1213,7 @@ input[type="search"] {
     align-items: center;
     justify-content: space-between;
     background-color: var(--amarillo);
-    height: 6rem;
+    height: 8rem;
     border: 0.0625rem solid var(--negro);
   }
   
@@ -1321,7 +1323,7 @@ input[type="search"] {
     .aboutUs {
       background-color: var(--amarillo);
       display: flex;
-      justify-content: space-evenly;
+   
       flex-wrap: wrap;
     }
     

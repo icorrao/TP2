@@ -32,6 +32,7 @@
   color: white;
   background-color: red;
   height: 20px;
+  cursor: pointer;
 }
 .titulo-tabla{
   background-color:rgb(219, 171, 27) ;
